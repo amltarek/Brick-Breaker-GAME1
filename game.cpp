@@ -245,7 +245,8 @@ void game::go() const
 			//pWind->DrawString(250, 5, "Timer: " + to_string(timer));
 			printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 			do {
-				tempball->move_ball(tempball);
+				float x[2] = { 0,-1 };
+				tempball->move_ball(tempball,x);
 				sleep_for(10000ns);
 				ktype = getkeyc(a);
 			} while (ktype != ARROW);
