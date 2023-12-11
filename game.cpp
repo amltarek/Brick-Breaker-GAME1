@@ -226,9 +226,9 @@ void game::go() const
 	
 	do
 	{
-		printMessage("Ready...");
 		if (gameMode == MODE_DSIGN)		//Game is in the Desgin mode
 		{
+			printMessage("Ready...");
 			getMouseClick(x, y);	//Get the coordinates of the user click
 			//[1] If user clicks on the Toolbar
 			pWind->SetBrush(LAVENDER);
@@ -247,13 +247,13 @@ void game::go() const
 			//pWind->DrawString(250, 5, "Timer: " + to_string(timer));
 			space = getkeyc(moveball);
 			while (moveball == ' ') {
-				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				do {
 					float x[2] = { 0,-1 };
 					tempball->move_ball(tempball, x);
 					sleep_for(10000ns);
 					ktype = getkeyc(a);
 				} while (ktype != ARROW);
+				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				while (ktype == ARROW) {
 
 					if (a == 6) {
