@@ -217,7 +217,9 @@ void game::go() const
 	int x, y;
 	bool isExit = false;
 	char a;
+	char moveball;
 	keytype ktype;
+	keytype space;
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
@@ -243,14 +245,16 @@ void game::go() const
 			//pWind->SetFont(20, BOLD, BY_NAME, "Arial");
 			//pWind->SetPen(BLACK);
 			//pWind->DrawString(250, 5, "Timer: " + to_string(timer));
-			printMessage("Play                                                                                                                                              Press Esc to access toolbar");
-			do {
-				float x[2] = { 0,-1 };
-				tempball->move_ball(tempball,x);
-				sleep_for(10000ns);
-				ktype = getkeyc(a);
-			} while (ktype != ARROW);
-			while (ktype==ARROW) {
+			space = getkeyc(moveball);
+			while (moveball == ' ') {
+				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
+				do {
+					float x[2] = { 0,-1 };
+					tempball->move_ball(tempball, x);
+					sleep_for(10000ns);
+					ktype = getkeyc(a);
+				} while (ktype != ARROW);
+				while (ktype == ARROW) {
 
 					if (a == 6) {
 						temppaddle->move_paddle_right(temppaddle);
@@ -261,13 +265,14 @@ void game::go() const
 					}
 					ktype = NO_KEYPRESS;
 
-			}
-			if (ktype == ESCAPE) {
-				printMessage("Toolbar accessed");
-				getMouseClick(x, y);
-				if (y >= 0 && y < config.toolBarHeight)
-				{
-					isExit = gameToolbar->handleClickPlayMode(x, y);
+				}
+				if (ktype == ESCAPE) {
+					printMessage("Toolbar accessed");
+					getMouseClick(x, y);
+					if (y >= 0 && y < config.toolBarHeight)
+					{
+						isExit = gameToolbar->handleClickPlayMode(x, y);
+					}
 				}
 			}
 		}
