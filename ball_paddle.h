@@ -17,5 +17,5 @@ public:
 	ball(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
 	void move_ball(ball*, float []);
-	void get_velocity(ball*,paddle*, float[]);
+	void get_velocity(ball*,paddle*, float []);
 };

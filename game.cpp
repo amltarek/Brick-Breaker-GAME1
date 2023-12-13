@@ -42,7 +42,7 @@ game::game()
 	//TODO: Add code to create and draw the ball
 	point position;
 	position.x = 555;
-	position.y = 470;
+	position.y = 350;
 	tempball = new ball(position, 30, 30, this);
 	//ball_paddle[0]->draw();
 	//6- Create and clear the status bar
@@ -246,11 +246,12 @@ void game::go() const
 			//pWind->SetPen(BLACK);
 			//pWind->DrawString(250, 5, "Timer: " + to_string(timer));
 			space = getkeyc(moveball);
+			float v[2] = { 0,1 };
 			while (moveball == ' ') {
 				do {
-					float x[2] = { 0,-1 };
-					tempball->move_ball(tempball, x);
+					tempball->move_ball(tempball, v);
 					sleep_for(10000ns);
+					tempball->get_velocity(tempball,temppaddle, v);
 					ktype = getkeyc(a);
 				} while (ktype != ARROW);
 				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
@@ -258,14 +259,13 @@ void game::go() const
 
 					if (a == 6) {
 						temppaddle->move_paddle_right(temppaddle);
-
 					}
 					if (a == 4) {
 						temppaddle->move_paddle_left(temppaddle);
 					}
 					ktype = NO_KEYPRESS;
 
-				}
+				} 
 				if (ktype == ESCAPE) {
 					printMessage("Toolbar accessed");
 					getMouseClick(x, y);

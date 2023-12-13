@@ -46,6 +46,10 @@ point const collidable::Collision_Check(collidable* hitbox_1, collidable* hitbox
 				else collision_point.y = y_2 - (y_2 - y_1 + height_1 / 2);
 			}
 		}
+		return collision_point;
 	}
-	return collision_point;
+	else {
+		return collision_point;
+	}
+	
 }

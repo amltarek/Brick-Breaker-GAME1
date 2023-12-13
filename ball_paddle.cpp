@@ -59,7 +59,9 @@ void ball::get_velocity(ball* aball, paddle* apaddle,float velocity[])
 	point z=Collision_Check(aball, apaddle);
 	float pos_onpaddle= (apaddle->getWidth()/2)-z.x;
 	float fraction = pos_onpaddle / (apaddle->getWidth() / 2);
-	float angle = fraction * 90;
-	velocity[0] = cos(angle);
-	velocity[1] = sin(angle);
+	float angle = fraction * 45;
+	if (z.x!=0&&z.y!=0) {
+		velocity[0] = cos(angle);
+		velocity[1] = sin(angle);
+	}
 }
