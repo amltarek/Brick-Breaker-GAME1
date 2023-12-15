@@ -38,7 +38,9 @@ public:
 
 	
 
-	clicktype getMouseClick(int& x, int& y) const;//Get coordinate where user clicks and returns click type (left/right)
+	clicktype getMouseClick(int& x, int& y) const;
+	clicktype getMouseClickc(int& x, int& y) const;
+	//Get coordinate where user clicks and returns click type (left/right)
 	string getString() const;	 //Returns a string entered by the user
 	keytype getkey(char& x) const;
 

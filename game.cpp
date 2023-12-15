@@ -61,7 +61,10 @@ clicktype game::getMouseClick(int& x, int& y) const
 {
 	return pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
-
+clicktype game::getMouseClickc(int& x, int& y) const
+{
+	return pWind->GetMouseClick(x, y);	//Wait for mouse click
+}
 keytype game::getkey(char& x) const
 {
 	return pWind->WaitKeyPress(x);
@@ -258,7 +261,7 @@ void game::go() const
 					pWind->DrawString(250, 5, "Timer: " + to_string(current_time));
 					if (ktype == ESCAPE) {
 						printMessage("Toolbar accessed");
-						getMouseClick(x, y);
+						getMouseClickc(x, y);
 						if (y >= 0 && y < config.toolBarHeight)
 						{
 							isExit = gameToolbar->handleClickPlayMode(x, y);
