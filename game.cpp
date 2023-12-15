@@ -241,6 +241,7 @@ void game::go() const
 			space = getkeyc(moveball);
 			float v[2] = { 0,1 };
 			int current_time = 0;
+
 			while (moveball == ' ') {
 				do {
 ;
@@ -255,6 +256,14 @@ void game::go() const
 					pWind->SetFont(20, BOLD, BY_NAME, "Arial");
 					pWind->SetPen(BLACK);
 					pWind->DrawString(250, 5, "Timer: " + to_string(current_time));
+					if (ktype == ESCAPE) {
+						printMessage("Toolbar accessed");
+						getMouseClick(x, y);
+						if (y >= 0 && y < config.toolBarHeight)
+						{
+							isExit = gameToolbar->handleClickPlayMode(x, y);
+						}
+					}
 				} while (ktype != ARROW);
 				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				while (ktype == ARROW) {
@@ -268,14 +277,7 @@ void game::go() const
 					ktype = NO_KEYPRESS;
 
 				} 
-				if (ktype == ESCAPE) {
-					printMessage("Toolbar accessed");
-					getMouseClick(x, y);
-					if (y >= 0 && y < config.toolBarHeight)
-					{
-						isExit = gameToolbar->handleClickPlayMode(x, y);
-					}
-				}
+
 			}
 		}
 	} while (!isExit);
