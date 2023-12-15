@@ -152,10 +152,11 @@ void iconDelete::onClick()
 	while (t == LEFT_CLICK)
 	{
 		point clicked;
-		clicked.x = x;
-		clicked.y = y;
+		clicked.x = int(x/60)*60;
+		clicked.y = int((y-40)/30)*30+40;
 		grid* pGrid = pGame->getGrid();
 		pGame->getWind()->SetBrush(LAVENDER);
+		pGame->getWind()->SetPen(LAVENDER);
 		pGrid->deleteBrick(clicked);
 		t = pGame->getMouseClick(x, y);
 	}
