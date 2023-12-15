@@ -3,7 +3,8 @@
 #include "toolbar.h"
 #include "grid.h"
 #include "ball_paddle.h"
-
+#include "timer.h"
+#include <chrono>
 
 //Main class that coordinates the game operation
 class game
@@ -26,6 +27,7 @@ class game
 	collidable** ball_paddle = new collidable * [2];
 	paddle* temppaddle;
 	ball* tempball;
+	
 	int lives = 3;
 	int timer = 0;
 	int score = 0;
@@ -63,8 +65,6 @@ public:
 	collidable** getBallorPaddle() const;
 	ball* getball() const;
 	paddle* getpaddle() const;
-
-
 	void setTimer(time_t time);
 	void setStartTime(time_t startTime);
 	time_t getStartTime() const;

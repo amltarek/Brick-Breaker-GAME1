@@ -368,6 +368,7 @@ bool toolbar::handleClickDesignMode(int x, int y)
 	iconsList[clickedIconIndex]->onClick();	//execute onClick action of clicked icon
 
 	if (clickedIconIndex == ICON_EXIT) return true;	
+	if (clickedIconIndex == ICON_PLAY) times.set_time();
 	
 	return false;
 
@@ -389,6 +390,7 @@ bool toolbar::handleClickPlayMode(int x, int y)
 	iconsList[clickedIconIndex+(ICON_COUNT-3)]->onClick();	//execute onClick action of clicked icon
 
 	if (clickedIconIndex == 2) return true;
+
 
 	return false;
 

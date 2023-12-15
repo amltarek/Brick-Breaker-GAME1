@@ -2,6 +2,7 @@
 
 //This file contains all classes related to toolbar (toolbar icon classes & toolbar class itself)
 #include "drawable.h"
+#include "timer.h"
 
 ////////////////////////////////////////////////////  class toolbarIcon   ////////////////////////////////////////////////////
 //Base class for all toolbar icons 
@@ -163,7 +164,7 @@ private:
     toolbarIcon** iconsList; //an array of toolbarIcon pointers
 	string iconsImages[ICON_COUNT];
 	game* pGame;
-
+	
 public:
 	toolbar(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	~toolbar();
@@ -171,6 +172,6 @@ public:
 	void drawPlayMode() const;
 	bool handleClickDesignMode(int x, int y);	//handles clicks on toolbar icons, returns true if exit is clicked
 	bool handleClickPlayMode(int x, int y);
-
+	timer times;
 };
 

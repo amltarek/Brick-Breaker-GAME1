@@ -223,7 +223,6 @@ void game::go() const
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
-	
 	do
 	{
 		if (gameMode == MODE_DSIGN)		//Game is in the Desgin mode
@@ -238,21 +237,24 @@ void game::go() const
 			}
 		}
 		if (gameMode == MODE_PLAY) {
-			//pWind->SetBrush(PURPLE);
-			//pWind->DrawRectangle(250, 0, 400, config.toolBarHeight);
-			//gameToolbar->setTimer(time(0) - gameToolbar->getStartTime());
-			// Draw timer
-			//pWind->SetFont(20, BOLD, BY_NAME, "Arial");
-			//pWind->SetPen(BLACK);
-			//pWind->DrawString(250, 5, "Timer: " + to_string(timer));
+
 			space = getkeyc(moveball);
 			float v[2] = { 0,1 };
+			int current_time = 0;
 			while (moveball == ' ') {
 				do {
+;
 					tempball->move_ball(tempball, v);
 					sleep_for(10000ns);
 					tempball->get_velocity(tempball,temppaddle, v);
 					ktype = getkeyc(a);
+					gameToolbar->times.update_time();
+					current_time =gameToolbar->times.get_time();
+					pWind->SetBrush(PURPLE);
+					pWind->DrawRectangle(250, 0, 400, config.toolBarHeight);
+					pWind->SetFont(20, BOLD, BY_NAME, "Arial");
+					pWind->SetPen(BLACK);
+					pWind->DrawString(250, 5, "Timer: " + to_string(current_time));
 				} while (ktype != ARROW);
 				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				while (ktype == ARROW) {
