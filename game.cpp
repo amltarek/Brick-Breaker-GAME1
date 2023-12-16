@@ -251,6 +251,7 @@ void game::go() const
 					tempball->move_ball(tempball, v);
 					sleep_for(10000ns);
 					tempball->get_velocity(tempball,temppaddle, v);
+					temppaddle->draw();
 					ktype = getkeyc(a);
 					gameToolbar->times.update_time();
 					current_time =gameToolbar->times.get_time();

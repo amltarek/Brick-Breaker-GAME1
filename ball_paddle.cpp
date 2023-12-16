@@ -61,21 +61,33 @@ void ball::move_ball(ball* aball, float velocity[])
 	uprLft.x += velocity[0] * 2;
 
 	if (uprLft.y <= 40) {
-		velocity[1] = -velocity[1];
+		velocity[0] = velocity[0];
+		velocity[1] = +1;
 		uprLft.y = 40 + 1;
 	}
-	else if (uprLft.y <= 40 || uprLft.y >= pGame->getWind()->GetHeight() - height - 40) {
-		velocity[1] = -velocity[1];
-		uprLft = prevPosition;
+	//else if (uprLft.y <= 40 || uprLft.y >= pGame->getWind()->GetHeight() - height - 40) {
+	//	velocity[1] = -velocity[1];
+	//	uprLft = prevPosition;
+	//}
+
+
+	//if (uprLft.x <= 3 || uprLft.x >= pGame->getWind()->GetWidth() - width) {
+
+	//	velocity[0] = -velocity[0];
+	//	velocity[1] = velocity[1];
+	//	uprLft = prevPosition;
+
+
+	//}
+	if (uprLft.x <=5) {
+		velocity[0] = 1;
+		velocity[1] = velocity[1];
+		uprLft.x = 6;
 	}
-
-
-	if (uprLft.x <= 0 || uprLft.x >= pGame->getWind()->GetWidth() - width) {
-
-		velocity[0] = -velocity[0];
-		uprLft = prevPosition;
-
-
+	if (uprLft.x > 1195) {
+		velocity[0] = -1;
+		velocity[1] = velocity[1];
+		uprLft.x = 6;
 	}
 	aball->draw();
 
@@ -85,8 +97,8 @@ void ball::get_velocity(ball* aball, paddle* apaddle, float velocity[])
 {
 	point z = Collision_Check(aball, apaddle);
 	float pos_onpaddle = (apaddle->getWidth()) - z.x;
-	float pos_from_center = pos_onpaddle - (apaddle->getWidth() / 2);
-	float fraction = pos_onpaddle / (apaddle->getWidth() / 2);
+	float pos_from_center = pos_onpaddle - (apaddle->getWidth()/2);
+	float fraction = pos_onpaddle / (apaddle->getWidth()/2);
 	float angle = fraction * 45;
 	float angle_rad = fraction * 3.14 / 180;
 	if (z.x != 0 && z.y != 0) {
