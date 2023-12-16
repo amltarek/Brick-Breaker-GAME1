@@ -97,7 +97,7 @@ void ball::get_velocity(ball* aball, paddle* apaddle, float velocity[])
 {
 	point z = Collision_Check(aball, apaddle);
 	float pos_onpaddle = (apaddle->getWidth()) - z.x;
-	float pos_from_center = pos_onpaddle - (apaddle->getWidth()/2);
+	float pos_from_center = pos_onpaddle - (apaddle->getWidth() /float(2));
 	float fraction = pos_onpaddle / (apaddle->getWidth()/2);
 	float angle = fraction * 45;
 	float angle_rad = fraction * 3.14 / 180;
