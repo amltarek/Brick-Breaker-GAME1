@@ -170,6 +170,7 @@ public:
 	~toolbar();
     void drawDesignMode() const;
 	void drawPlayMode() const;
+	void draw_time(window* pwind);
 	bool handleClickDesignMode(int x, int y);	//handles clicks on toolbar icons, returns true if exit is clicked
 	bool handleClickPlayMode(int x, int y);
 	timer times;

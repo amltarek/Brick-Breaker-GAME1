@@ -195,7 +195,6 @@ void iconPlay::onClick()
 	pGame->setGameMode(1);
 	pGame->getball()->draw();
 	pGame->getGameToolbar()->drawPlayMode();
-	pGame->setStartTime(time(0));
 }
 
 ////////////////////////////////////////////////////  class iconExit   //////////////////////////////////////////////
@@ -344,13 +343,25 @@ void toolbar::drawPlayMode() const
 	pWind->DrawString(900, 5, "Score: " + to_string(pGame->getScore()));
 
 	// Draw timer
-	pWind->DrawString(250, 5, "Timer: " + to_string(pGame->getTime()));
-
+	pWind->SetBrush(PURPLE);
+	pWind->DrawRectangle(250, 0, 400, config.toolBarHeight);
+	pWind->SetFont(20, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(BLACK);
+	pWind->DrawString(250, 5, "Timer: ");
+	
 	//Draw hearts for lives
 	int heart_side = 30;
 	for (int i = 0;i < 3;i++) {
 		pWind->DrawImage("images\\ToolbarIcons\\FullHeart.jpg", 520+heart_side*i, 5,heart_side,heart_side);
 	}
+}
+void toolbar::draw_time(window* pwind)  {
+	times.update_time();
+	pwind->SetBrush(PURPLE);
+	pwind->DrawRectangle(250, 0, 400, config.toolBarHeight);
+	pwind->SetFont(20, BOLD, BY_NAME, "Arial");
+	pwind->SetPen(BLACK);
+	pwind->DrawString(250, 5, "Timer: " + to_string(times.get_time()));
 }
 
 //handles clicks on toolbar icons, returns true if exit is clicked

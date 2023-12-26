@@ -15,6 +15,7 @@ class grid:public drawable
 public:
 	grid(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	~grid();
+	brick*** get_matrix();
 	void draw() const;
 	int addBrick(BrickType brkType, point clickedPoint);
 	void sortDangling(point brickPosition);

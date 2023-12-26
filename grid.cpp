@@ -31,6 +31,9 @@ grid::~grid()
 	delete brickMatrix;
 
 }
+brick*** grid::get_matrix() {
+	return brickMatrix;
+}
 
 void grid::draw() const
 {

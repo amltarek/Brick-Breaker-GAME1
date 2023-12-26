@@ -2,6 +2,7 @@
 #include "gameConfig.h"
 #include <chrono>
 #include <thread>
+#include "grid.h"
 using namespace std::this_thread;     // sleep_for, sleep_until
 using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
@@ -65,11 +66,11 @@ clicktype game::getMouseClickc(int& x, int& y) const
 {
 	return pWind->GetMouseClick(x, y);	//Wait for mouse click
 }
-keytype game::getkey(char& x) const
+keytype game::wait_key(char& x) const
 {
 	return pWind->WaitKeyPress(x);
 }
-keytype game::getkeyc(char& x) const
+keytype game::get_key(char& x) const
 {
 	return pWind->GetKeyPress(x);
 }
@@ -168,34 +169,10 @@ paddle* game::getpaddle() const
 	return temppaddle;
 }
 
-void game::setTimer(time_t time)
-{
-	this->timer = time;
-}
-
-void game::setStartTime(time_t startTime)
-{
-	this->startTime = startTime;
-}
-
-time_t game::getStartTime() const
-{
-	return startTime;
-}
-
-time_t game::getTime() const
-{
-	return timer;
-}
 
 int game::getScore()
 {
 	return score;
-}
-
-void game::updateTimer()
-{
-	this->timer = this->timer - this->startTime;
 }
 
 void game::updateScore(int scoreChange)
@@ -219,7 +196,7 @@ void game::go() const
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
-	char a;
+	char paddle_movement;
 	char moveball;
 	keytype ktype;
 	keytype space;
@@ -240,26 +217,16 @@ void game::go() const
 			}
 		}
 		if (gameMode == MODE_PLAY) {
-
-			space = getkeyc(moveball);
-			float v[2] = { 0,1 };
-			int current_time = 0;
-
+			space = get_key(moveball);
+			float direction[2] = { 0,1 };
 			while (moveball == ' ') {
 				do {
-;
-					tempball->move_ball(tempball, v);
+					tempball->move_ball(tempball, direction);
 					sleep_for(10000ns);
-					tempball->get_velocity(tempball,temppaddle, v);
+					tempball->get_velocity(temppaddle, direction);
 					temppaddle->draw();
-					ktype = getkeyc(a);
-					gameToolbar->times.update_time();
-					current_time =gameToolbar->times.get_time();
-					pWind->SetBrush(PURPLE);
-					pWind->DrawRectangle(250, 0, 400, config.toolBarHeight);
-					pWind->SetFont(20, BOLD, BY_NAME, "Arial");
-					pWind->SetPen(BLACK);
-					pWind->DrawString(250, 5, "Timer: " + to_string(current_time));
+					ktype = get_key(paddle_movement);
+					gameToolbar->draw_time(pWind);
 					if (ktype == ESCAPE) {
 						printMessage("Toolbar accessed");
 						getMouseClickc(x, y);
@@ -272,11 +239,11 @@ void game::go() const
 				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				while (ktype == ARROW) {
 
-					if (a == 6) {
-						temppaddle->move_paddle_right(temppaddle);
+					if (paddle_movement == 6) {
+						temppaddle->move_paddle_right();
 					}
-					if (a == 4) {
-						temppaddle->move_paddle_left(temppaddle);
+					if (paddle_movement == 4) {
+						temppaddle->move_paddle_left();
 					}
 					ktype = NO_KEYPRESS;
 

@@ -42,9 +42,9 @@ public:
 	clicktype getMouseClickc(int& x, int& y) const;
 	//Get coordinate where user clicks and returns click type (left/right)
 	string getString() const;	 //Returns a string entered by the user
-	keytype getkey(char& x) const;
+	keytype wait_key(char& x) const;
 
-	keytype getkeyc(char& x) const;
+	keytype get_key(char& x) const;
 
 	window* CreateWind(int, int, int, int) const; //creates the game window
 
@@ -67,11 +67,6 @@ public:
 	collidable** getBallorPaddle() const;
 	ball* getball() const;
 	paddle* getpaddle() const;
-	void setTimer(time_t time);
-	void setStartTime(time_t startTime);
-	time_t getStartTime() const;
-	time_t getTime() const;
-	void updateTimer();
 	void updateScore(int scoreChange);
 	int getScore();
 	void decreaseLives();

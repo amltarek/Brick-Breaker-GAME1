@@ -1,13 +1,14 @@
 #pragma once
 #include "collidable.h"
+#include "Bricks.h"
 class paddle :public collidable {
 private:
 
 public:
 	paddle(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
-	void move_paddle_right(paddle*);
-	void move_paddle_left(paddle*);
+	void move_paddle_right();
+	void move_paddle_left();
 };
 
 class ball :public collidable {
@@ -17,5 +18,5 @@ public:
 	ball(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
 	void move_ball(ball*, float []);
-	void get_velocity(ball*,paddle*, float []);
+	void get_velocity(paddle* apaddle, float velocity[]);
 };
