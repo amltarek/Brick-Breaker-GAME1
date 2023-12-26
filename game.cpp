@@ -221,12 +221,11 @@ void game::go() const
 			float direction[2] = { 0,1 };
 			while (moveball == ' ') {
 				do {
+					gameToolbar->draw_time(pWind);
 					tempball->move_ball(tempball, direction);
 					sleep_for(10000ns);
 					tempball->get_velocity(temppaddle, direction);
-					temppaddle->draw();
 					ktype = get_key(paddle_movement);
-					gameToolbar->draw_time(pWind);
 					if (ktype == ESCAPE) {
 						printMessage("Toolbar accessed");
 						getMouseClickc(x, y);

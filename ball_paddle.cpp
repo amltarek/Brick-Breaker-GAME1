@@ -73,10 +73,10 @@ void ball::move_ball(ball* aball, float velocity[])
 		velocity[1] = velocity[1];
 		uprLft.x = 6;
 	}
-	if (uprLft.x >= 1195) {
+	if (uprLft.x >= 1150) {
 		velocity[0] = -1;
 		velocity[1] = velocity[1];
-		uprLft.x = 1194;
+		uprLft.x = 1149;
 	}
 	aball->draw();
 
@@ -94,4 +94,5 @@ void ball::get_velocity(paddle* apaddle, float velocity[])
 		velocity[0] = cos(angle);
 		velocity[1] = sin(angle);
 	}
+	apaddle->draw();
 }
