@@ -217,8 +217,10 @@ void game::go() const
 		if (gameMode == MODE_PLAY) {
 			space = get_key(moveball);
 			float direction[2] = { 0,1 };
+			temppaddle->draw();
 			while (moveball == ' ') {
 				do {
+					
 					gameToolbar->draw_time(pWind);
 					tempball->move_ball(direction);
 					tempball->get_velocity(direction);
@@ -249,4 +251,5 @@ void game::go() const
 			}
 		}
 	} while (!isExit);
+	pWind->SetBuffering(false);
 }

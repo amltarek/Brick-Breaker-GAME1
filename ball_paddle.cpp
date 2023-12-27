@@ -58,12 +58,11 @@ void ball::collisionAction()
 
 void ball::move_ball(float velocity[])
 {
-	pGame->getWind()->SetPen(LAVENDER, 1);
-	pGame->getWind()->SetBrush(LAVENDER);
-	pGame->getWind()->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + width, uprLft.y + height);
+
 	point prevPosition = uprLft;
 
-
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
 	uprLft.y += velocity[1] * 4;
 	uprLft.x += velocity[0] * 4;
 
@@ -82,10 +81,12 @@ void ball::move_ball(float velocity[])
 		velocity[1] = velocity[1];
 		uprLft.x = 1149;
 	}
-	grid* pGrid = pGame->getGrid();
-	pGrid->draw();
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + width, prevPosition.y + height);
+	pGame->getGrid()->draw();
+	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
+
 	Pause(20);
 	
 
@@ -103,6 +104,7 @@ void ball::get_velocity(float velocity[])
 	if (z.x != 0 && z.y != 0) {
 		velocity[0] = cos(angle);
 		velocity[1] = sin(angle);
+		this->uprLft.y--;
 	}
 	thepaddle->draw();
 	pGame->getWind()->UpdateBuffer();
@@ -125,7 +127,9 @@ void ball::brickdeflection(float velocity[]) {
 				if (y.x != 0 && y.y != 0) {
 					velocity[0] = cos(angle);
 					velocity[1] = sin(angle);
+					this->uprLft.y--;
 				}
 			}
+	pGame->getWind()->UpdateBuffer();
 
 }
