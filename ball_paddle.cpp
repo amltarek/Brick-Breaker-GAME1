@@ -10,6 +10,8 @@ paddle::paddle(point r_uprleft, int r_width, int r_height, game* r_pGame):
 	collidable(r_uprleft, r_width, r_height, r_pGame){
 	imageName = "images\\paddle.jpg";
 }
+
+
 //////////////////////////////////////////////////Pddle Collisions////////////////////////////////////////////////////
 void paddle::collisionAction()
 {
@@ -63,9 +65,7 @@ void ball::move_ball(float velocity[])
 
 	pGame->getWind()->SetPen(LAVENDER);
 	pGame->getWind()->SetBrush(LAVENDER);
-	uprLft.y += velocity[1] * 4;
-	uprLft.x += velocity[0] * 4;
-
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x+30,prevPosition.y+30);
 	if (uprLft.y <= 40) {
 		velocity[0] = velocity[0];
 		velocity[1] = +1;
@@ -81,15 +81,16 @@ void ball::move_ball(float velocity[])
 		velocity[1] = velocity[1];
 		uprLft.x = 1149;
 	}
-	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + width, prevPosition.y + height);
+
+	uprLft.y += velocity[1] * 4;
+	uprLft.x += velocity[0] * 4;
+
 	pGame->getGrid()->draw();
+	
 	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
-
-	Pause(20);
-	
-
+	Pause(5);
 }
 
 void ball::get_velocity(float velocity[])
@@ -104,10 +105,8 @@ void ball::get_velocity(float velocity[])
 	if (z.x != 0 && z.y != 0) {
 		velocity[0] = cos(angle);
 		velocity[1] = sin(angle);
-		this->uprLft.y--;
+		this->uprLft.y = this->uprLft.y - 1;
 	}
-	thepaddle->draw();
-	pGame->getWind()->UpdateBuffer();
 
 }
 
@@ -124,12 +123,22 @@ void ball::brickdeflection(float velocity[]) {
 				float fraction = pos_onpaddle / (current_brick->getWidth() / 2);
 				float angle = fraction * 45;
 				float angle_rad = fraction * 3.14 / 180;
-				if (y.x != 0 && y.y != 0) {
+				if (y.y != 0) {
 					velocity[0] = cos(angle);
 					velocity[1] = sin(angle);
-					this->uprLft.y--;
+					/*this->uprLft.y--;*/
+				}
+				else if (y.x != 0) {
+					velocity[0] = -velocity[0];
+					velocity[1] = velocity[1];
 				}
 			}
-	pGame->getWind()->UpdateBuffer();
 
+}
+
+void ball::draw()
+{
+	pGame->getWind()->SetPen(BLUE);
+	pGame->getWind()->SetBrush(BLUE);
+	pGame->getWind()->DrawCircle(uprLft.x+15, uprLft.y+15, 15);
 }

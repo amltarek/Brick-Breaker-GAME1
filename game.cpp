@@ -220,7 +220,6 @@ void game::go() const
 			temppaddle->draw();
 			while (moveball == ' ') {
 				do {
-					
 					gameToolbar->draw_time(pWind);
 					tempball->move_ball(direction);
 					tempball->get_velocity(direction);

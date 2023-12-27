@@ -20,4 +20,5 @@ public:
 	void move_ball(float []);
 	void get_velocity(float velocity[]);
 	void brickdeflection(float velocity[]);
+	void draw();
 };
