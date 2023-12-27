@@ -188,8 +188,6 @@ void game::decreaseLives()
 	}
 }
 
-
-
 ////////////////////////////////////////////////////////////////////////
 void game::go() const
 {
@@ -222,9 +220,9 @@ void game::go() const
 			while (moveball == ' ') {
 				do {
 					gameToolbar->draw_time(pWind);
-					tempball->move_ball(tempball, direction);
-					sleep_for(10000ns);
-					tempball->get_velocity(temppaddle, direction);
+					tempball->move_ball(direction);
+					tempball->get_velocity(direction);
+					tempball->brickdeflection(direction);
 					ktype = get_key(paddle_movement);
 					if (ktype == ESCAPE) {
 						printMessage("Toolbar accessed");

@@ -17,6 +17,7 @@ private:
 public:
 	ball(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
-	void move_ball(ball*, float []);
-	void get_velocity(paddle* apaddle, float velocity[]);
+	void move_ball(float []);
+	void get_velocity(float velocity[]);
+	void brickdeflection(float velocity[]);
 };

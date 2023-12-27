@@ -35,6 +35,16 @@ brick*** grid::get_matrix() {
 	return brickMatrix;
 }
 
+int grid::get_rows()
+{
+	return rows;
+}
+
+int grid::get_cols()
+{
+	return cols;
+}
+
 void grid::draw() const
 {
 	window* pWind = pGame->getWind();
