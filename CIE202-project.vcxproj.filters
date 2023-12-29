@@ -131,6 +131,9 @@
     <ClCompile Include="timer.cpp">
       <Filter>Toolbar</Filter>
     </ClCompile>
+    <ClCompile Include="Collectible.cpp">
+      <Filter>Bricks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawable.h">
@@ -219,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="timer.h">
       <Filter>Toolbar</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectible.h">
+      <Filter>Bricks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
