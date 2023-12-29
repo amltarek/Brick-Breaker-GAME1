@@ -33,7 +33,7 @@ game::game()
 	//4- Create the Paddle
 	//TODO: Add code to create and draw the paddle
 	point uperleft;
-	uperleft.x = 520;
+	uperleft.x = (config.windWidth/2)-50;
 	uperleft.y = 500;
 	int paddle_width = 100;
 	int paddle_height = 30;
@@ -42,7 +42,7 @@ game::game()
 	//5- Create the ball
 	//TODO: Add code to create and draw the ball
 	point position;
-	position.x = 555;
+	position.x =(config.windWidth/2)-15;
 	position.y = 350;
 	tempball = new ball(position, 30, 30, this);
 	//ball_paddle[0]->draw();
@@ -175,18 +175,15 @@ int game::getScore()
 	return score;
 }
 
+
+
 void game::updateScore(int scoreChange)
 {
 	score += scoreChange;
 }
 
-void game::decreaseLives()
-{
-	lives = lives - 1;
-	if (lives <= 0) {
-		//end sequence
-	}
-}
+
+
 
 ////////////////////////////////////////////////////////////////////////
 void game::go() const
@@ -221,7 +218,11 @@ void game::go() const
 			while (moveball == ' ') {
 				do {
 					gameToolbar->draw_time(pWind);
-					tempball->move_ball(direction);
+					if (!tempball->move_ball(direction)) {
+						tempball->reset_position(direction);
+						temppaddle->draw();
+						space = wait_key(moveball);
+					}
 					tempball->get_velocity(direction);
 					tempball->brickdeflection(direction);
 					ktype = get_key(paddle_movement);

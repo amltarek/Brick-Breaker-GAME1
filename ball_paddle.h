@@ -8,6 +8,7 @@ public:
 	paddle(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
 	void move_paddle_right();
+	void reset_pos();
 	void move_paddle_left();
 };
 
@@ -17,8 +18,9 @@ private:
 public:
 	ball(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
-	void move_ball(float []);
+	bool move_ball(float []);
 	void get_velocity(float velocity[]);
 	void brickdeflection(float velocity[]);
 	void draw();
+	void reset_position(float []);
 };

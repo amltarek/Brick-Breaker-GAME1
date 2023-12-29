@@ -44,6 +44,14 @@ void paddle::move_paddle_right()
 	pGame->getWind()->UpdateBuffer();
 }
 
+void paddle::reset_pos() {
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(uprLft.x, uprLft.y, uprLft.x+width, uprLft.y+height);
+	uprLft.x = (config.windWidth / 2) - 50;
+	uprLft.y = 500;
+	this->draw();
+}
 
 //////////////////////////////////////////////////////////////////////Ball/////////////////////////////////////////////////////////////
 ball::ball(point r_uprleft, int r_width, int r_height, game* r_pGame):
@@ -58,7 +66,7 @@ void ball::collisionAction()
 }
 
 
-void ball::move_ball(float velocity[])
+bool ball::move_ball(float velocity[])
 {
 
 	point prevPosition = uprLft;
@@ -81,7 +89,11 @@ void ball::move_ball(float velocity[])
 		velocity[1] = velocity[1];
 		uprLft.x = 1149;
 	}
-
+	if (uprLft.y >= 520) {
+		velocity[0] = 0;
+		velocity[1] = 0;
+		return false;
+	}
 	uprLft.y += velocity[1] * 4;
 	uprLft.x += velocity[0] * 4;
 
@@ -91,6 +103,7 @@ void ball::move_ball(float velocity[])
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
 	Pause(5);
+	return true;
 }
 
 void ball::get_velocity(float velocity[])
@@ -142,3 +155,16 @@ void ball::draw()
 	pGame->getWind()->SetBrush(BLUE);
 	pGame->getWind()->DrawCircle(uprLft.x+15, uprLft.y+15, 15);
 }
+
+void ball::reset_position(float velocity[])
+{
+	pGame->getGameToolbar()->decrease_lives();
+	pGame->getGameToolbar()->drawPlayMode();
+	this->uprLft.x = (config.windWidth / 2) - 15;
+	this->uprLft.y = 350;
+	velocity[1] = 1;
+	this->draw();
+	pGame->getpaddle()->reset_pos();
+
+}
+

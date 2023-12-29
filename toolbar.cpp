@@ -347,11 +347,11 @@ void toolbar::drawPlayMode() const
 	pWind->DrawRectangle(250, 0, 400, config.toolBarHeight);
 	pWind->SetFont(20, BOLD, BY_NAME, "Arial");
 	pWind->SetPen(BLACK);
-	pWind->DrawString(250, 5, "Timer: ");
+	//pWind->DrawString(250, 5, "Timer: ");
 	
 	//Draw hearts for lives
 	int heart_side = 30;
-	for (int i = 0;i < 3;i++) {
+	for (int i = 0;i < lives;i++) {
 		pWind->DrawImage("images\\ToolbarIcons\\FullHeart.jpg", 520+heart_side*i, 5,heart_side,heart_side);
 	}
 }
@@ -407,6 +407,14 @@ bool toolbar::handleClickPlayMode(int x, int y)
 	return false;
 
 
+}
+
+void toolbar::decrease_lives()
+{
+	if (lives>0) lives--;
+	else {
+		pGame->printMessage("Game Over");
+	}
 }
 
 

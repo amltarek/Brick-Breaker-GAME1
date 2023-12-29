@@ -28,7 +28,7 @@ class game
 	paddle* temppaddle;
 	ball* tempball;
 	
-	int lives = 3;
+	
 	int timer = 0;
 	int score = 0;
 	time_t startTime = 0;
@@ -69,6 +69,6 @@ public:
 	paddle* getpaddle() const;
 	void updateScore(int scoreChange);
 	int getScore();
-	void decreaseLives();
+
 };
 
