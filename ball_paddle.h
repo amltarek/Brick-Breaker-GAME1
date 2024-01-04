@@ -2,6 +2,7 @@
 #include "collidable.h"
 #include "Bricks.h"
 class paddle :public collidable {
+
 private:
 
 public:

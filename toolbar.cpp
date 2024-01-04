@@ -351,8 +351,11 @@ void toolbar::drawPlayMode() const
 	
 	//Draw hearts for lives
 	int heart_side = 30;
-	for (int i = 0;i < lives;i++) {
-		pWind->DrawImage("images\\ToolbarIcons\\FullHeart.jpg", 520+heart_side*i, 5,heart_side,heart_side);
+	for (int i = 0; i < 3 - lives; i++) {
+		pWind->DrawImage("images\\ToolbarIcons\\EmptyHeart.jpg", 520 + heart_side * i, 5, heart_side, heart_side);
+	}
+	for (int i = 3 - lives; i < 3; i++) {
+		pWind->DrawImage("images\\ToolbarIcons\\FullHeart.jpg", 520 + heart_side * i, 5, heart_side, heart_side);
 	}
 }
 void toolbar::draw_time(window* pwind)  {

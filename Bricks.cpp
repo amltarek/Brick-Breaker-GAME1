@@ -1,5 +1,6 @@
 #include "Bricks.h"
 #include "game.h"
+#include"Collectible.h"
 
 
 ////////////////////////////////////////////////////  class brick  ///////////////////////////////////////
@@ -25,6 +26,9 @@ normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGa
 void normalBrick::collisionAction()
 {
 	pGame->updateScore(1);
+	pGame->getWind()->SetBrush(RED);
+	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+
 	delete this;
 }
 
@@ -57,11 +61,26 @@ powerup_downBrick::powerup_downBrick(point r_uprleft, int r_width, int r_height,
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {
 	imageName = "images\\bricks\\Powerup_downBrick.jpg";
+	
 }
 
 void powerup_downBrick::collisionAction()
 {
-	//TODO: Add collision action logic
+	
+	
+	
+    collectible* c1;
+	c1 = new collectible(uprLft, 7, pGame);
+	
+	
+	c1->move_collectible();
+	delete this;
+	
+	//////////pGame->getWind()->SetBrush(RED);
+	///////////pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+	
+	
+	
 }
 
 /////////////////////////////////////////////////// class hardbrick /////////////////////////////////////////////////////////

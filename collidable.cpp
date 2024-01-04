@@ -1,10 +1,10 @@
 #include "collidable.h"
 
-collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame):
-			drawable(r_uprleft, r_width, r_height,  r_pGame)
+collidable::collidable(point r_uprleft, int r_width, int r_height, game* r_pGame) :
+	drawable(r_uprleft, r_width, r_height, r_pGame)
 {
 }
-point const collidable::Collision_Check(collidable* hitbox_1, collidable* hitbox_2)
+point collidable::Collision_Check(collidable* hitbox_1, collidable* hitbox_2)
 {
 	point collision_point;
 	collision_point.x = 0;
@@ -19,6 +19,8 @@ point const collidable::Collision_Check(collidable* hitbox_1, collidable* hitbox
 	int width_2 = hitbox_2->width;
 
 	if (x_1 + width_1 >= x_2 && x_1 - width_2 <= x_2 && y_1 - y_2 <= height_1 && y_2 - y_1 <= height_2) {
+		hitbox_1->collisionAction();
+		hitbox_2->collisionAction();
 		if (x_2 - x_1 == width_1) {
 			collision_point.x = x_2;
 			if (y_1 > y_2) {
@@ -51,5 +53,5 @@ point const collidable::Collision_Check(collidable* hitbox_1, collidable* hitbox
 	else {
 		return collision_point;
 	}
-	
+
 }

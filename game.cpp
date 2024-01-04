@@ -3,6 +3,7 @@
 #include <chrono>
 #include <thread>
 #include "grid.h"
+#include"Collectible.h"
 using namespace std::this_thread;     // sleep_for, sleep_until
 using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
@@ -177,9 +178,17 @@ int game::getScore()
 
 
 
+
+
 void game::updateScore(int scoreChange)
 {
 	score += scoreChange;
+}
+
+point game::getPaddlePosition() const
+{
+	// Assuming the paddle is stored in the `temppaddle` member variable
+	return temppaddle->getPosition();
 }
 
 

@@ -3,6 +3,8 @@
 //This file contains all classes bricks classes 
 #include "collidable.h"
 
+
+
 enum BrickType	//add more brick types
 {
 	BRK_NRM,	//Normal Brick
@@ -51,6 +53,7 @@ public:
 ////////////////////////////////////////////////////  class powerup_downBrick  /////////////////////////////////
 class powerup_downBrick :public brick
 {
+
 public:
 	powerup_downBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();

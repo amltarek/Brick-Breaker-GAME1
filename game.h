@@ -5,6 +5,7 @@
 #include "ball_paddle.h"
 #include "timer.h"
 #include <chrono>
+#include"Collectible.h"
 
 //Main class that coordinates the game operation
 class game
@@ -27,6 +28,7 @@ class game
 	collidable** ball_paddle = new collidable * [2];
 	paddle* temppaddle;
 	ball* tempball;
+	
 	
 	
 	int timer = 0;
@@ -69,6 +71,8 @@ public:
 	paddle* getpaddle() const;
 	void updateScore(int scoreChange);
 	int getScore();
+	point getPaddlePosition() const;
+	
 
 };
 
