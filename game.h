@@ -6,6 +6,7 @@
 #include "timer.h"
 #include <chrono>
 #include"Collectible.h"
+class collectible;
 
 //Main class that coordinates the game operation
 class game
@@ -28,6 +29,9 @@ class game
 	collidable** ball_paddle = new collidable * [2];
 	paddle* temppaddle;
 	ball* tempball;
+	collectible** a1; // Declaration of a1 array
+	int maxcollect=100;
+	int currentcollect=0;
 	
 	
 	
@@ -72,6 +76,9 @@ public:
 	void updateScore(int scoreChange);
 	int getScore();
 	point getPaddlePosition() const;
+	void addcollectibles(collectible* a2);
+	void removecollectibles(collectible* a3);
+	
 	
 
 };

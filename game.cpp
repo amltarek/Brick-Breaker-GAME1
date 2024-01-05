@@ -12,7 +12,6 @@ game::game()
 	//Initialize playgrond parameters
 	gameMode = MODE_DSIGN;
 
-
 	//1 - Create the main window
 	pWind = CreateWind(config.windWidth, config.windHeight, config.wx, config.wy);
 
@@ -20,6 +19,7 @@ game::game()
 	point toolbarUpperleft;
 	toolbarUpperleft.x = 0;
 	toolbarUpperleft.y = 0;
+	
 
 	gameToolbar = new toolbar(toolbarUpperleft,0,config.toolBarHeight, this);
 	gameToolbar->drawDesignMode();
@@ -48,6 +48,7 @@ game::game()
 	tempball = new ball(position, 30, 30, this);
 	//ball_paddle[0]->draw();
 	//6- Create and clear the status bar
+	a1 = new collectible * [maxcollect];
 	clearStatusBar();
 }
 
@@ -190,6 +191,27 @@ point game::getPaddlePosition() const
 	// Assuming the paddle is stored in the `temppaddle` member variable
 	return temppaddle->getPosition();
 }
+void game::addcollectibles(collectible* a2)
+{
+	if (currentcollect < maxcollect)
+	{
+		a1[currentcollect] = a2;
+		currentcollect++;
+	}
+}
+
+void game::removecollectibles(collectible* a3)
+{
+	if (currentcollect < maxcollect)
+	{
+		a1[currentcollect] = nullptr;
+		delete a3;
+	}
+
+}
+
+
+
 
 
 
@@ -234,6 +256,11 @@ void game::go() const
 					}
 					tempball->get_velocity(direction);
 					tempball->brickdeflection(direction);
+					
+					for (int i = 0; i < currentcollect; i++) {
+						a1[i]->move_collectible();
+					}
+					
 					ktype = get_key(paddle_movement);
 					if (ktype == ESCAPE) {
 						printMessage("Toolbar accessed");

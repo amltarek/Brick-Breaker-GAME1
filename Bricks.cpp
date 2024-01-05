@@ -1,4 +1,4 @@
-#include "Bricks.h"
+ #include "Bricks.h"
 #include "game.h"
 #include"Collectible.h"
 
@@ -73,7 +73,7 @@ void powerup_downBrick::collisionAction()
 	c1 = new collectible(uprLft, 7, pGame);
 	
 	
-	c1->move_collectible();
+	pGame->addcollectibles(c1);
 	delete this;
 	
 	//////////pGame->getWind()->SetBrush(RED);

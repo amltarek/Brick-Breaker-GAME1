@@ -9,7 +9,10 @@ collectible::collectible(point r_uprleft, int r_radius, game* r_pGame) :
 
 collectible::~collectible()
 {
+
 }
+
+
 
 void collectible::update()
 {
@@ -24,23 +27,23 @@ void collectible::draw()
 }
 
 void collectible::collisionAction()
-{
-
+{ 
+	pGame->removecollectibles(this);
 }
 
 bool collectible::move_collectible()
 {
 	point prevPosition = uprLft;
+	
+	
+
 
 	pGame->getWind()->SetPen(LAVENDER);
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
-
-	uprLft.y--;
 	
-	pGame->getGrid()->draw();
-
-
+	uprLft.y++;
+	
 	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
@@ -49,6 +52,22 @@ bool collectible::move_collectible()
 
 	
 }
+
+///void collectible::addcollectibles(collectible*a2)
+//{
+	///////a1 = new collectible * [maxcollect];
+	////if (currentcollect < maxcollect)
+	//////{
+		////////for (int i = 0; i < maxcollect; i++)
+		////////{
+			////////a1[i] = a2;
+			//////currentcollect++;
+		/////}
+
+	///////}
+///////}
+
+
 
 
 

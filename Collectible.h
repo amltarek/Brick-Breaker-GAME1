@@ -7,16 +7,19 @@
 
 class collectible : public collidable {
     game* pGame;
- 
+   
     
     int radius;
-
+   
 public:
     collectible(point r_uprleft, int r_radius, game* r_pGame);
     ~collectible();
+    int getcurrentcollect();
 
     void update();
     void draw();
-    void collisionAction() override;
+    void collisionAction() ;
     bool  move_collectible();
+    /////void addcollectibles(collectible*a2);
+    collectible** geta1();
 };
