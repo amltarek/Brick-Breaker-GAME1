@@ -6,20 +6,32 @@
 #include "CMUgraphicsLib/auxil.h"
 
 class collectible : public collidable {
+protected:
     game* pGame;
-   
-    
     int radius;
    
 public:
     collectible(point r_uprleft, int r_radius, game* r_pGame);
     ~collectible();
-    int getcurrentcollect();
-
-    void update();
-    void draw();
-    void collisionAction() ;
+    virtual void update()=0;
+    virtual void draw()=0;
+    void collisionAction()=0 ;
     bool  move_collectible();
-    /////void addcollectibles(collectible*a2);
-    collectible** geta1();
+   
+};
+
+class powerup : public collectible {
+public:
+    powerup(point r_uprleft, int r_radius, game* r_pGame);
+    void collisionAction() override;
+    void draw() override;
+
+};
+
+class powerdown : public collectible {
+public:
+    powerdown(point r_uprleft, int r_radius, game* r_pGame);
+
+    void collisionAction() override;
+    void draw() override;
 };

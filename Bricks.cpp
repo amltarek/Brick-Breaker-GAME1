@@ -26,8 +26,7 @@ normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGa
 void normalBrick::collisionAction()
 {
 	pGame->updateScore(1);
-	pGame->getWind()->SetBrush(RED);
-	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+	
 
 	delete this;
 }
@@ -70,7 +69,7 @@ void powerup_downBrick::collisionAction()
 	
 	
     collectible* c1;
-	c1 = new collectible(uprLft, 7, pGame);
+	c1 = new powerup(uprLft, 7, pGame);
 	
 	
 	pGame->addcollectibles(c1);

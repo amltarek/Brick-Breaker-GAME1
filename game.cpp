@@ -202,11 +202,16 @@ void game::addcollectibles(collectible* a2)
 
 void game::removecollectibles(collectible* a3)
 {
-	if (currentcollect < maxcollect)
-	{
-		a1[currentcollect] = nullptr;
-		delete a3;
-	}
+	
+		if (currentcollect < maxcollect)
+		{
+			delete a1[currentcollect];
+			a1[currentcollect] = nullptr;
+			delete a3;
+		}
+
+	
+
 
 }
 

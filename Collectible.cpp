@@ -9,41 +9,16 @@ collectible::collectible(point r_uprleft, int r_radius, game* r_pGame) :
 
 collectible::~collectible()
 {
-
-}
-
-
-
-void collectible::update()
-{
-   
-}
-
-void collectible::draw()
-{
-   
-    pGame->getWind()->SetBrush(RED);
-    pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
-}
-
-void collectible::collisionAction()
-{ 
-	pGame->removecollectibles(this);
+   pGame = nullptr;
 }
 
 bool collectible::move_collectible()
 {
 	point prevPosition = uprLft;
-	
-	
-
-
 	pGame->getWind()->SetPen(LAVENDER);
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
-	
 	uprLft.y++;
-	
 	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
@@ -52,22 +27,30 @@ bool collectible::move_collectible()
 
 	
 }
+//////////////////////////////////////powerup
+powerup::powerup(point r_uprleft, int r_radius, game* r_pGame):
+	collectible(r_uprleft, r_radius, r_pGame) {}
 
-///void collectible::addcollectibles(collectible*a2)
-//{
-	///////a1 = new collectible * [maxcollect];
-	////if (currentcollect < maxcollect)
-	//////{
-		////////for (int i = 0; i < maxcollect; i++)
-		////////{
-			////////a1[i] = a2;
-			//////currentcollect++;
-		/////}
+void powerup::collisionAction()
+{
+	pGame->removecollectibles(this);
+}
 
-	///////}
-///////}
+void powerup::draw()
+{
+	pGame->getWind()->SetBrush(RED);
+	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+}
+///////////////////////////////////////////////////////////////powerdown////////////////////////////////////////////
+powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame):
+	collectible(r_uprleft, r_radius, r_pGame) {}
 
+void powerdown::collisionAction()
+{
+}
 
-
+void powerdown::draw()
+{
+}
 
 
