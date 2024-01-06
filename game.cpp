@@ -4,12 +4,18 @@
 #include <thread>
 #include "grid.h"
 #include"Collectible.h"
+#include"collidable.h"
+
+
+
+
 using namespace std::this_thread;     // sleep_for, sleep_until
 using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
+class collidable;
 game::game()
 {
-	//Initialize playgrond parameters
+	//Initializeplaygrond parameters
 	gameMode = MODE_DSIGN;
 
 	//1 - Create the main window
@@ -46,6 +52,7 @@ game::game()
 	position.x =(config.windWidth/2)-15;
 	position.y = 350;
 	tempball = new ball(position, 30, 30, this);
+	
 	//ball_paddle[0]->draw();
 	//6- Create and clear the status bar
 	a1 = new collectible * [maxcollect];
@@ -186,11 +193,7 @@ void game::updateScore(int scoreChange)
 	score += scoreChange;
 }
 
-point game::getPaddlePosition() const
-{
-	// Assuming the paddle is stored in the `temppaddle` member variable
-	return temppaddle->getPosition();
-}
+
 void game::addcollectibles(collectible* a2)
 {
 	if (currentcollect < maxcollect)
@@ -264,6 +267,16 @@ void game::go() const
 					
 					for (int i = 0; i < currentcollect; i++) {
 						a1[i]->move_collectible();
+						point collisionpoint = collidable::Collision_Check(a1[i], temppaddle);
+						if (collisionpoint.x != 0 || collisionpoint.y != 0)
+						{
+							a1[i]->collisionAction();
+						}
+						  
+						
+						
+	
+						
 					}
 					
 					ktype = get_key(paddle_movement);

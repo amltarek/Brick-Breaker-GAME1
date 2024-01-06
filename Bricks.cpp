@@ -28,7 +28,7 @@ void normalBrick::collisionAction()
 	pGame->updateScore(1);
 	
 
-	delete this;
+	pGame->getGrid()->deleteBrick(uprLft);
 }
 
 ////////////////////////////////////////////////////  class bombBrick  /////////////////////////////////
@@ -52,7 +52,7 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void rockBrick::collisionAction()
 {
-	//TODO: Add collision action logic
+	pGame->getGrid()->deleteBrick(uprLft);
 }
 
 ////////////////////////////////////////////////////  class powerup_downBrick  /////////////////////////////////
@@ -67,16 +67,18 @@ void powerup_downBrick::collisionAction()
 {
 	
 	
-	
     collectible* c1;
 	c1 = new powerup(uprLft, 7, pGame);
 	
 	
 	pGame->addcollectibles(c1);
-	delete this;
 	
-	//////////pGame->getWind()->SetBrush(RED);
-	///////////pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+	
+	pGame->getGrid()->deleteBrick(uprLft);
+	
+	
+	
+	
 	
 	
 	
@@ -97,7 +99,7 @@ void hardBrick::collisionAction()
 	// Check if the brick is destroyed
 	if (strength <= 0)
 	{
-		delete this;
+		pGame->getGrid()->deleteBrick(uprLft);
 	}
 	
 }

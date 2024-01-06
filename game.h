@@ -29,7 +29,7 @@ class game
 	collidable** ball_paddle = new collidable * [2];
 	paddle* temppaddle;
 	ball* tempball;
-	collectible** a1; // Declaration of a1 array
+	collectible** a1; 
 	int maxcollect=100;
 	int currentcollect=0;
 	
@@ -75,7 +75,7 @@ public:
 	paddle* getpaddle() const;
 	void updateScore(int scoreChange);
 	int getScore();
-	point getPaddlePosition() const;
+	
 	void addcollectibles(collectible* a2);
 	void removecollectibles(collectible* a3);
 	
