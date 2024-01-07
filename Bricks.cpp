@@ -69,13 +69,9 @@ void powerup_downBrick::collisionAction()
 
 
 	
-	
+pGame->addcollectibles(uprLft);
 
-
-	pGame->addcollectibles(uprLft);
-
-
-	pGame->getGrid()->deleteBrick(uprLft);
+pGame->getGrid()->deleteBrick(uprLft);
 
 
 

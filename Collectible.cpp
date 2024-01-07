@@ -1,8 +1,8 @@
 #include "collectible.h"
 
 
-collectible::collectible(point r_uprleft, int r_radius, game* r_pGame) :
-    collidable(r_uprleft, r_radius * 2, r_radius * 2, r_pGame)
+collectible::collectible(point r_uprleft, int r_radius, game* r_pGame,int r_duration) :
+    collidable(r_uprleft, r_radius * 2, r_radius * 2, r_pGame),duration(r_duration)
     
 {
 }
@@ -41,8 +41,8 @@ int collectible::getindex()
 	return index;
 }
 //////////////////////////////////////powerup
-powerup::powerup(point r_uprleft, int r_radius, game* r_pGame):
-	collectible(r_uprleft, r_radius, r_pGame) {}
+powerup::powerup(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
+	collectible(r_uprleft, r_radius, r_pGame, r_duration) {}
 
 void powerup::collisionAction()
 {
@@ -59,12 +59,22 @@ void powerup::draw()
 	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
 }
 ///////////////////////////////////////////////////////////////powerdown////////////////////////////////////////////
-powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame):
-	collectible(r_uprleft, r_radius, r_pGame) {}
+powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
+	collectible(r_uprleft, r_radius, r_pGame,r_duration) {
+	
+	collectibleTimer.set_time();
+	
+}
 
 void powerdown::collisionAction()
 {
 	pGame->getpaddle()->inverted(true);
+	pGame->removecollectibles(this->getindex());
+
+if (collectibleTimer.get_time() >= 6)
+	{
+	pGame->getpaddle()->inverted(false);
+	}
 	
 }
 

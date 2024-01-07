@@ -219,8 +219,18 @@ void game::addcollectibles(point uprleft)
 	 
 	if (currentcollect < maxcollect)
 	{
-		
-		a1[currentcollect] = new powerup(uprleft, 7, this);
+		int random = rand() % 2; 
+
+		switch (random)
+		{
+		case 0:
+			a1[currentcollect] = new powerup (uprleft,7 , this,0);
+			break;
+		case 1:
+			a1[currentcollect] = new powerdown(uprleft, 7, this,8);
+			break;
+		}
+
 		a1[currentcollect]->setindex(currentcollect);
 		currentcollect++;
 	}
