@@ -32,7 +32,7 @@ class game
 	float direction[2] = { 0,1 };
 	collectible** a1; 
 	int maxcollect=100;
-	int currentcollect=0;
+	int currentcollect = 0;
 	
 	
 	
@@ -78,8 +78,8 @@ public:
 	int getScore();
 	void reset_game();
 	
-	void addcollectibles(collectible* a2);
-	void removecollectibles(collectible* a3);
+	void addcollectibles(point uprleft);
+	void removecollectibles(int index);
 	void set_direction(float x, float y);
 	float* get_direction();
 };

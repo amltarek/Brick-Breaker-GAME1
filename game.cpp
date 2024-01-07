@@ -214,37 +214,27 @@ void game::updateScore(int scoreChange)
 }
 
 
-void game::addcollectibles(collectible* a2)
+void game::addcollectibles(point uprleft)
 {
+	 
 	if (currentcollect < maxcollect)
 	{
-		a1[currentcollect] = a2;
+		
+		a1[currentcollect] = new powerup(uprleft, 7, this);
+		a1[currentcollect]->setindex(currentcollect);
 		currentcollect++;
 	}
 }
 
-void game::removecollectibles(collectible* a3)
+void game::removecollectibles(int index)
 {
-	
-	for (int i = 0; i < currentcollect; i++)
-	{
-		if (a1[i] == a3)
-		{
-			delete a1[i];
-			a1[i] = nullptr;
-			// Shift the remaining elements in the array
-			for (int j = i; j < currentcollect - 1; j++)
-			{
-				a1[j] = a1[j + 1];
-			}
-			a1[currentcollect - 1] = nullptr;
-			currentcollect--;
-			break;
-		}
-	}
+	getWind()->SetBrush(LAVENDER);
+    getWind()->DrawCircle(a1[index]->getPosition().x, a1[index]->getPosition().y, 7);
+	delete a1[index];
+	a1[index] = nullptr;
 
-	delete a3;
-	a3 = nullptr;
+
+	
 	
 
 
@@ -313,12 +303,12 @@ void game::go() const
 					tempball->brickdeflection();
 					
 					for (int i = 0; i < currentcollect; i++) {
-						a1[i]->move_collectible();
-						point collisionpoint = collidable::Collision_Check(a1[i], temppaddle);
-						if (collisionpoint.x != 0 || collisionpoint.y != 0)
-						{
-							a1[i]->collisionAction();
+						if (a1[i]) {
+							a1[i]->move_collectible();
+							collidable::Collision_Check(a1[i], temppaddle);
 						}
+						 
+						
 					}
 					
 					ktype = get_key(paddle_movement);

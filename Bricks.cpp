@@ -68,11 +68,11 @@ void powerup_downBrick::collisionAction()
 {
 
 
-	collectible* c1;
-	c1 = new powerup(uprLft, 7, pGame);
+	
+	
 
 
-	pGame->addcollectibles(c1);
+	pGame->addcollectibles(uprLft);
 
 
 	pGame->getGrid()->deleteBrick(uprLft);

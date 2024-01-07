@@ -32,6 +32,14 @@ bool collectible::move_collectible()
 
 	
 }
+void collectible::setindex(int index)
+{
+	this->index = index;
+}
+int collectible::getindex()
+{
+	return index;
+}
 //////////////////////////////////////powerup
 powerup::powerup(point r_uprleft, int r_radius, game* r_pGame):
 	collectible(r_uprleft, r_radius, r_pGame) {}
@@ -39,7 +47,7 @@ powerup::powerup(point r_uprleft, int r_radius, game* r_pGame):
 void powerup::collisionAction()
 {
 		
-		
+	pGame->removecollectibles(this->getindex());
 	
 	
 
@@ -57,6 +65,7 @@ powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame):
 void powerdown::collisionAction()
 {
 	pGame->getpaddle()->inverted(true);
+	
 }
 
 void powerdown::draw()

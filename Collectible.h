@@ -7,7 +7,7 @@
 
 class collectible : public collidable {
 protected:
- 
+    int index;
    
 public:
     collectible(point r_uprleft, int r_radius, game* r_pGame);
@@ -16,6 +16,8 @@ public:
     virtual void draw()=0;
     void collisionAction()=0 ;
     bool  move_collectible();
+    void setindex(int index);
+    int getindex();
    
 };
 
