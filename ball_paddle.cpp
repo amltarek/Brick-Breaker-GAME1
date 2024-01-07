@@ -9,12 +9,14 @@
 paddle::paddle(point r_uprleft, int r_width, int r_height, game* r_pGame):
 	collidable(r_uprleft, r_width, r_height, r_pGame){
 	imageName = "images\\paddle.jpg";
+	controlinverted = false;
 }
 
 
 //////////////////////////////////////////////////Pddle Collisions////////////////////////////////////////////////////
 void paddle::collisionAction()
 {
+
 }
 
 
@@ -31,6 +33,17 @@ void paddle::move_paddle_left()
 	}
 	pGame->getWind()->UpdateBuffer();
 }
+
+void paddle::inverted(bool inverted)
+{
+	controlinverted = inverted;
+}
+
+bool paddle::getcontrol()
+{
+	return controlinverted;
+}
+
 
 void paddle::move_paddle_right()
 {

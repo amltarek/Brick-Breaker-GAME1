@@ -38,11 +38,6 @@ powerup::powerup(point r_uprleft, int r_radius, game* r_pGame):
 
 void powerup::collisionAction()
 {
-	
-	
-	
-		pGame->getWind()->SetBrush(BLACK);
-		pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
 		
 		
 	
@@ -61,10 +56,13 @@ powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame):
 
 void powerdown::collisionAction()
 {
+	pGame->getpaddle()->inverted(true);
 }
 
 void powerdown::draw()
 {
+	pGame->getWind()->SetBrush(BLUE);
+	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
 }
 
 
