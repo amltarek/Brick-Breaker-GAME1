@@ -7,11 +7,11 @@
 
 enum BrickType	//add more brick types
 {
-	BRK_NRM,	//Normal Brick
-	BRK_BMB,	//Bomb Brick
-	BRK_RCK,
-	BRK_PUD,
-	BRK_HRD
+	BRK_NRM,	//Normal Brick (0)
+	BRK_BMB,	//Bomb Brick (1)
+	BRK_RCK,	//Rock Brick (2)
+	BRK_PUD,	//Powerup/down Brick (3) 
+	BRK_HRD		//Hard Brick (4)
 
 	//TODO: Add more types
 };
@@ -20,9 +20,11 @@ enum BrickType	//add more brick types
 //Base class for all bricks
 class brick :public collidable
 {
+protected:
+	BrickType type;
 public:
 	brick(point r_uprleft, int r_width, int r_height, game* r_pGame);
-	~brick();
+	BrickType getType() const;
 };
 
 

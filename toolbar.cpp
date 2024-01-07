@@ -171,6 +171,9 @@ iconLoad::iconLoad(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 void iconLoad::onClick()
 {
 	//TO DO: add code for loading grid from file (Check I/O lab)
+	pGame->printMessage("Enter file name to load design from:");
+	string filename = pGame->getString();
+	pGame->getGrid()->loadFromFile(filename);
 }
 
 
@@ -182,6 +185,9 @@ iconSave::iconSave(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 void iconSave::onClick()
 {
 	//TO DO: add code for saving grid to file (Check I/O lab)
+	pGame->printMessage("Enter file name to save design in:");
+	string filename = pGame->getString();
+	pGame->getGrid()->saveToFile(filename);
 }
 
 

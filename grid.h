@@ -16,11 +16,13 @@ public:
 	grid(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	~grid();
 	brick*** get_matrix();
-	int get_rows();
-	int get_cols();
+	int get_rows() const;
+	int get_cols() const;
 	void draw() const;
 	int addBrick(BrickType brkType, point clickedPoint);
 	void sortDangling(point brickPosition);
 	void deleteBrick(point brickPosition);
+	bool saveToFile(string filename) const;
+	bool loadFromFile(string filename);
 };
 

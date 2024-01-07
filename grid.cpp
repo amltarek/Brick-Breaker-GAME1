@@ -1,6 +1,7 @@
 #include "grid.h"
 #include "game.h"
 #include "gameConfig.h"
+#include <fstream>
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG):
 	drawable(r_uprleft, wdth, hght, pG)
@@ -35,12 +36,12 @@ brick*** grid::get_matrix() {
 	return brickMatrix;
 }
 
-int grid::get_rows()
+int grid::get_rows() const
 {
 	return rows;
 }
 
-int grid::get_cols()
+int grid::get_cols() const
 {
 	return cols;
 }
@@ -136,4 +137,52 @@ void grid::deleteBrick(point brickPosition)
 	int row = (brickPosition.y - config.toolBarHeight) / config.brickHeight;
 	delete brickMatrix[row][col];
 	brickMatrix[row][col] = nullptr;
+}
+
+
+bool grid::saveToFile(string filename) const
+{
+	fstream outFile("IO files\\" + filename + ".txt", ios::out);
+	for (int i = 0; i < get_rows(); i++) {
+		for (int j = 0; j < get_cols(); j++) {
+			if (brickMatrix[i][j]) {
+				outFile << i << " " << j << " \t" << (int)brickMatrix[i][j]->getType() << endl;
+			}
+		}
+	}
+	outFile.close();
+	return true;
+}
+
+bool grid::loadFromFile(string filename)
+{
+	fstream inFile("IO files\\" + filename + ".txt", ios::in);
+	if (!inFile)
+	{
+		pGame->printMessage("File doesn't exist!");
+		inFile.close();
+		return false;
+	}
+
+	//Clear Matrix first
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
+			if (brickMatrix[i][j]) {
+				delete brickMatrix[i][j];	//delete all allocated bricks
+				brickMatrix[i][j] = nullptr;
+			}
+
+	//Load new
+	int row, column, brickType;
+	point brickpos;
+	while (inFile >> row) {
+		inFile >> column;
+		inFile >> brickType;
+		brickpos.x = column * config.brickWidth;
+		brickpos.y = row * config.brickHeight + uprLft.y;
+		addBrick((BrickType)brickType, brickpos);
+	}
+	draw();
+	inFile.close();
+	return true;
 }

@@ -9,25 +9,24 @@ brick::brick(point r_uprleft, int r_width, int r_height, game* r_pGame):
 {
 }
 
-brick::~brick(){
-	pGame->getWind()->SetBrush(LAVENDER);
-	pGame->getWind()->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + width, uprLft.y + height);
-	pGame->getGrid()->sortDangling(uprLft); //sets to nullptr only as already deleted from heap when "delete this;" is called.
+
+BrickType brick::getType() const
+{
+	return type;
 }
 
 
 ////////////////////////////////////////////////////  class normalBrick  /////////////////////////////////
-normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGame):
+normalBrick::normalBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {
 	imageName = "images\\bricks\\NormalBrick.jpg";
+	type = BRK_NRM;
 }
 
 void normalBrick::collisionAction()
 {
 	pGame->updateScore(1);
-	
-
 	pGame->getGrid()->deleteBrick(uprLft);
 }
 
@@ -36,6 +35,7 @@ bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {
 	imageName = "images\\bricks\\BombBrick.jpg";
+	type = BRK_BMB;
 }
 
 void bombBrick::collisionAction()
@@ -48,12 +48,12 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {
 	imageName = "images\\bricks\\RockBrick.jpg";
+	type = BRK_RCK;
 }
 
 void rockBrick::collisionAction()
 {
-	/*pGame->getGrid()->deleteBrick(uprLft);*/
-	pGame->updateScore(1);
+	pGame->getGrid()->deleteBrick(uprLft);
 }
 
 ////////////////////////////////////////////////////  class powerup_downBrick  /////////////////////////////////
@@ -61,28 +61,28 @@ powerup_downBrick::powerup_downBrick(point r_uprleft, int r_width, int r_height,
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {
 	imageName = "images\\bricks\\Powerup_downBrick.jpg";
-	
+	type = BRK_PUD;
 }
 
 void powerup_downBrick::collisionAction()
 {
-	
-	
-    collectible* c1;
-	c1 = new powerdown(uprLft, 7, pGame);
-	
-	
+
+
+	collectible* c1;
+	c1 = new powerup(uprLft, 7, pGame);
+
+
 	pGame->addcollectibles(c1);
-	
-	
+
+
 	pGame->getGrid()->deleteBrick(uprLft);
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 }
 
 /////////////////////////////////////////////////// class hardbrick /////////////////////////////////////////////////////////
@@ -90,6 +90,7 @@ hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {
 	imageName = "images\\bricks\\HardBrick.jpg";
+	type = BRK_HRD;
 	strength = 3;
 }
 
@@ -102,6 +103,6 @@ void hardBrick::collisionAction()
 	{
 		pGame->getGrid()->deleteBrick(uprLft);
 	}
-	
+
 }
 
