@@ -60,27 +60,27 @@ void bombBrick::collisionAction()
 	pGrid->deleteBrick(temp);
 
 	temp.x = uprLft.x;
-	temp.y = uprLft.y - config.brickHeight;
+	temp.y = uprLft.y - height;
 	pGrid->deleteBrick(temp);
 
 	
-	temp.x = uprLft.x + config.brickWidth;
-	temp.y = uprLft.y + config.brickHeight;
+	temp.x = uprLft.x + width;
+	temp.y = uprLft.y + height;
 	pGrid->deleteBrick(temp);
 
 
-	temp.x = uprLft.x - config.brickWidth;
-	temp.y = uprLft.y - config.brickHeight;
+	temp.x = uprLft.x - width;
+	temp.y = uprLft.y - height;
 	pGrid->deleteBrick(temp);
 
 
-	temp.x = uprLft.x + config.brickWidth;
-	temp.y = uprLft.y - config.brickHeight;
+	temp.x = uprLft.x + width;
+	temp.y = uprLft.y - height;
 	pGrid->deleteBrick(temp);
 
 
-	temp.x = uprLft.x - config.brickWidth;
-	temp.y = uprLft.y + config.brickHeight;
+	temp.x = uprLft.x - width;
+	temp.y = uprLft.y + height;
 	pGrid->deleteBrick(temp);
 
 	pGrid->deleteBrick(uprLft);
