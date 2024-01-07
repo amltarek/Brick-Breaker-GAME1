@@ -88,7 +88,7 @@ bool ball::move_ball()
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x+30,prevPosition.y+30);
 	if (uprLft.y <= 40) {
-		pGame->set_direction(0, 1);
+		pGame->set_direction(-pGame->get_direction()[0], 1);
 		uprLft.y = 40 + 1;
 	}
 	if (uprLft.x <=5) {
@@ -103,14 +103,14 @@ bool ball::move_ball()
 		pGame->set_direction(0, 0);
 		return false;
 	}
-	uprLft.y += pGame->get_direction()[1] * 4;
-	uprLft.x += pGame->get_direction()[0] * 4;
+	uprLft.y += pGame->get_direction()[1]*2;
+	uprLft.x += pGame->get_direction()[0]*2;
 
 	
 	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
-	Pause(5);
+	Pause(1);
 	return true;
 }
 
@@ -118,14 +118,31 @@ void ball::get_velocity()
 {
 	paddle* thepaddle = pGame->getpaddle();
 	point z = Collision_Check(this, thepaddle);
-	float pos_onpaddle = (thepaddle->getWidth()) - z.x;
-	float pos_from_center = pos_onpaddle - (thepaddle->getWidth() /float(2));
-	float fraction = pos_onpaddle / (thepaddle->getWidth()/2);
-	float angle = fraction * 45;
-	float angle_rad = fraction * 3.14 / 180;
+	float pos_onpaddle = z.x - thepaddle->getPosition().x;
 	if (z.x != 0 && z.y != 0) {
-		pGame->set_direction(cos(angle), sin(angle));
-		this->uprLft.y = this->uprLft.y - 1;
+		
+			int z = abs(pos_onpaddle - 50);
+			int newy=2;
+			switch (z/10)
+			{
+			case (1): { newy = 2; }
+					break;
+			case(2): {newy = 3; }
+					break;
+			case(3): {newy = 4; }
+				   break;
+			case(4): {newy = 6; }
+				   break;
+			default:
+				break;
+			}
+		if (pos_onpaddle > 50) {
+			pGame->set_direction(2, -newy);
+		}
+		else {
+			pGame->set_direction(-2, -newy);
+		}
+
 	}
 
 }
@@ -138,16 +155,35 @@ void ball::brickdeflection() {
 			if (matrix[i][j]) {
 				brick* current_brick = matrix[i][j];
 				point y = Collision_Check(this, current_brick);
-				float pos_onpaddle = (current_brick->getWidth()) - y.x;
-				float pos_from_center = pos_onpaddle - (current_brick->getWidth() / float(2));
-				float fraction = pos_onpaddle / (current_brick->getWidth() / 2);
-				float angle = fraction * 45;
-				float angle_rad = fraction * 3.14 / 180;
-				if (y.y != 0) {
-					pGame->set_direction(cos(angle),sin(angle));
-					this->uprLft.y--;
+				float pos_onbrick = y.x - current_brick->getPosition().x;
+				int newy = 2;
+				if (y.x != 0 && y.y != 0) {
+
+					int z = abs(pos_onbrick - 30);
+					
+					switch (z / 10)
+					{
+					case (1): { newy = 2; }
+							break;
+					case(2): {newy = 3; }
+						   break;
+					case(3): {newy = 4; }
+						   break;
+					case(4): {newy = 6; }
+						   break;
+					default:
+						break;
+					}
 				}
-				else if (y.x != 0) {
+				if (pos_onbrick!=0.0 &&y.x!=0&&y.y!=0){
+					if (pos_onbrick > 30) {
+						pGame->set_direction(2, -newy*pGame->get_direction()[1]/abs(pGame->get_direction()[1]));
+					}
+					else {
+						pGame->set_direction(-2, -newy);
+					}
+				}
+				else if(y.x!=0&&y.y!=0) {
 					pGame->set_direction(-(pGame->get_direction()[0]), pGame->get_direction()[1]);
 				}
 			}

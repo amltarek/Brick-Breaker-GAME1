@@ -40,7 +40,50 @@ bombBrick::bombBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void bombBrick::collisionAction()
 {
-	//TODO: Add collision action logic
+
+	grid* pGrid = pGame->getGrid();
+	pGame->updateScore(5);
+
+
+	point temp;
+	temp.x = uprLft.x + width;
+	temp.y = uprLft.y;
+	
+	
+	temp.x = uprLft.x - width;
+	temp.y = uprLft.y;
+	pGrid->deleteBrick(temp);
+
+
+	temp.x = uprLft.x;
+	temp.y = uprLft.y+height;
+	pGrid->deleteBrick(temp);
+
+	temp.x = uprLft.x;
+	temp.y = uprLft.y - config.brickHeight;
+	pGrid->deleteBrick(temp);
+
+	
+	temp.x = uprLft.x + config.brickWidth;
+	temp.y = uprLft.y + config.brickHeight;
+	pGrid->deleteBrick(temp);
+
+
+	temp.x = uprLft.x - config.brickWidth;
+	temp.y = uprLft.y - config.brickHeight;
+	pGrid->deleteBrick(temp);
+
+
+	temp.x = uprLft.x + config.brickWidth;
+	temp.y = uprLft.y - config.brickHeight;
+	pGrid->deleteBrick(temp);
+
+
+	temp.x = uprLft.x - config.brickWidth;
+	temp.y = uprLft.y + config.brickHeight;
+	pGrid->deleteBrick(temp);
+
+	pGrid->deleteBrick(uprLft);
 }
 
 ////////////////////////////////////////////////////  class rockBrick  /////////////////////////////////

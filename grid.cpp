@@ -129,16 +129,18 @@ void grid::deleteBrick(point brickPosition)
 	pGame->getWind()->SetPen(LAVENDER);
 	pGame->getWind()->SetPen(config.gridLinesColor, 1);
 	pGame->getWind()->DrawRectangle(brickPosition.x, brickPosition.y, brickPosition.x + 60, brickPosition.y + 30);
-	pGame->getWind()->DrawLine(brickPosition.x, brickPosition.y,brickPosition.x + 60,brickPosition.y);
-	pGame->getWind()->DrawLine(brickPosition.x, brickPosition.y, brickPosition.x, brickPosition.y+30);
-	pGame->getWind()->DrawLine(brickPosition.x + 60, brickPosition.y, brickPosition.x + 60,  brickPosition.y + 30);
-	pGame->getWind()->DrawLine(brickPosition.x, brickPosition.y + 30, brickPosition.x + 60,  brickPosition.y + 30);
-	int col = (brickPosition.x)/config.brickWidth;
+	pGame->getWind()->DrawLine(brickPosition.x, brickPosition.y, brickPosition.x + 60, brickPosition.y);
+	pGame->getWind()->DrawLine(brickPosition.x, brickPosition.y, brickPosition.x, brickPosition.y + 30);
+	pGame->getWind()->DrawLine(brickPosition.x + 60, brickPosition.y, brickPosition.x + 60, brickPosition.y + 30);
+	pGame->getWind()->DrawLine(brickPosition.x, brickPosition.y + 30, brickPosition.x + 60, brickPosition.y + 30);
+	int col = (brickPosition.x) / config.brickWidth;
 	int row = (brickPosition.y - config.toolBarHeight) / config.brickHeight;
-	delete brickMatrix[row][col];
-	brickMatrix[row][col] = nullptr;
-}
+	if (brickMatrix[row][col]) {
+		delete brickMatrix[row][col];
+		brickMatrix[row][col] = nullptr;
 
+	}
+}
 
 bool grid::saveToFile(string filename) const
 {
