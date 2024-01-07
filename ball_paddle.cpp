@@ -106,12 +106,11 @@ bool ball::move_ball()
 	uprLft.y += pGame->get_direction()[1] * 4;
 	uprLft.x += pGame->get_direction()[0] * 4;
 
-	pGame->getGrid()->draw();
 	
 	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
-	Pause(3);
+	Pause(5);
 	return true;
 }
 
