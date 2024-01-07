@@ -66,7 +66,7 @@ void ball::collisionAction()
 }
 
 
-bool ball::move_ball(float velocity[])
+bool ball::move_ball()
 {
 
 	point prevPosition = uprLft;
@@ -75,38 +75,34 @@ bool ball::move_ball(float velocity[])
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x+30,prevPosition.y+30);
 	if (uprLft.y <= 40) {
-		velocity[0] = velocity[0];
-		velocity[1] = +1;
+		pGame->set_direction(0, 1);
 		uprLft.y = 40 + 1;
 	}
 	if (uprLft.x <=5) {
-		velocity[0] = 1;
-		velocity[1] = velocity[1];
+		pGame->set_direction(1, pGame->get_direction()[1]);
 		uprLft.x = 6;
 	}
 	if (uprLft.x >= 1150) {
-		velocity[0] = -1;
-		velocity[1] = velocity[1];
+		pGame->set_direction(-1, pGame->get_direction()[1]);
 		uprLft.x = 1149;
 	}
 	if (uprLft.y >= 520) {
-		velocity[0] = 0;
-		velocity[1] = 0;
+		pGame->set_direction(0, 0);
 		return false;
 	}
-	uprLft.y += velocity[1] * 4;
-	uprLft.x += velocity[0] * 4;
+	uprLft.y += pGame->get_direction()[1] * 4;
+	uprLft.x += pGame->get_direction()[0] * 4;
 
 	pGame->getGrid()->draw();
 	
 	pGame->getpaddle()->draw();
 	this->draw();
 	pGame->getWind()->UpdateBuffer();
-	Pause(5);
+	Pause(3);
 	return true;
 }
 
-void ball::get_velocity(float velocity[])
+void ball::get_velocity()
 {
 	paddle* thepaddle = pGame->getpaddle();
 	point z = Collision_Check(this, thepaddle);
@@ -116,14 +112,13 @@ void ball::get_velocity(float velocity[])
 	float angle = fraction * 45;
 	float angle_rad = fraction * 3.14 / 180;
 	if (z.x != 0 && z.y != 0) {
-		velocity[0] = cos(angle);
-		velocity[1] = sin(angle);
+		pGame->set_direction(cos(angle), sin(angle));
 		this->uprLft.y = this->uprLft.y - 1;
 	}
 
 }
 
-void ball::brickdeflection(float velocity[]) {
+void ball::brickdeflection() {
 	grid* pGrid = pGame->getGrid();
 	brick*** matrix = pGrid->get_matrix();
 	for (int i = 0; i < pGrid->get_rows(); i++)
@@ -137,13 +132,11 @@ void ball::brickdeflection(float velocity[]) {
 				float angle = fraction * 45;
 				float angle_rad = fraction * 3.14 / 180;
 				if (y.y != 0) {
-					velocity[0] = cos(angle);
-					velocity[1] = sin(angle);
-					/*this->uprLft.y--;*/
+					pGame->set_direction(cos(angle),sin(angle));
+					this->uprLft.y--;
 				}
 				else if (y.x != 0) {
-					velocity[0] = -velocity[0];
-					velocity[1] = velocity[1];
+					pGame->set_direction(-(pGame->get_direction()[0]), pGame->get_direction()[1]);
 				}
 			}
 
@@ -156,15 +149,13 @@ void ball::draw()
 	pGame->getWind()->DrawCircle(uprLft.x+15, uprLft.y+15, 15);
 }
 
-void ball::reset_position(float velocity[])
+void ball::reset_position()
 {
-	pGame->getGameToolbar()->decrease_lives();
 	pGame->getGameToolbar()->drawPlayMode();
 	this->uprLft.x = (config.windWidth / 2) - 15;
 	this->uprLft.y = 350;
-	velocity[1] = 1;
+	pGame->set_direction(0, 1);
 	this->draw();
 	pGame->getpaddle()->reset_pos();
-
 }
 

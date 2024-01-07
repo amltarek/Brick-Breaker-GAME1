@@ -29,6 +29,7 @@ class game
 	collidable** ball_paddle = new collidable * [2];
 	paddle* temppaddle;
 	ball* tempball;
+	float direction[2] = { 0,1 };
 	collectible** a1; 
 	int maxcollect=100;
 	int currentcollect=0;
@@ -75,11 +76,11 @@ public:
 	paddle* getpaddle() const;
 	void updateScore(int scoreChange);
 	int getScore();
+	void reset_game();
 	
 	void addcollectibles(collectible* a2);
 	void removecollectibles(collectible* a3);
-	
-	
-
+	void set_direction(float x, float y);
+	float* get_direction();
 };
 

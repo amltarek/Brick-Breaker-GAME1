@@ -236,7 +236,9 @@ iconStop::iconStop(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 
 void iconStop::onClick()
 {
-	//TO DO: add code for cleanup and game exit here
+	pGame->setGameMode(0);
+	pGame->reset_game();
+	pGame->getGameToolbar()->drawDesignMode();
 }
 
 
@@ -404,7 +406,7 @@ bool toolbar::handleClickPlayMode(int x, int y)
 	int clickedIconIndex = (x / config.iconWidth);
 	iconsList[clickedIconIndex+(ICON_COUNT-3)]->onClick();	//execute onClick action of clicked icon
 
-	if (clickedIconIndex == 2) return true;
+	//if (clickedIconIndex == 2) return true;
 
 
 	return false;
@@ -418,6 +420,20 @@ void toolbar::decrease_lives()
 	else {
 		pGame->printMessage("Game Over");
 	}
+}
+
+void toolbar::reset_lives()
+{
+	lives = 3;
+}
+
+void toolbar::draw_score()
+{
+	pGame->getWind()->SetBrush(PURPLE);
+	pGame->getWind()->DrawRectangle(900, 0, config.windWidth, config.toolBarHeight);
+	pGame->getWind()->SetFont(20, BOLD, BY_NAME, "Arial");
+	pGame->getWind()->SetPen(BLACK);
+	pGame->getWind()->DrawString(900, 5, "Score: " + to_string(pGame->getScore()));
 }
 
 

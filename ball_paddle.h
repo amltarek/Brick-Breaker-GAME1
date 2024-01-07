@@ -19,9 +19,9 @@ private:
 public:
 	ball(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
-	bool move_ball(float []);
-	void get_velocity(float velocity[]);
-	void brickdeflection(float velocity[]);
+	bool move_ball();
+	void get_velocity();
+	void brickdeflection();
 	void draw();
-	void reset_position(float []);
+	void reset_position();
 };

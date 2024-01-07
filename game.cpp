@@ -184,6 +184,25 @@ int game::getScore()
 	return score;
 }
 
+void game::reset_game()
+{
+	for (int i = 0; i < bricksGrid->get_rows(); i++)
+		for (int j = 0; j < bricksGrid->get_cols(); j++)
+			if (bricksGrid->get_matrix()[i][j]) {
+				bricksGrid->deleteBrick(bricksGrid->get_matrix()[i][j]->getPosition());
+			}
+	
+	bricksGrid->draw();
+	getWind()->SetPen(LAVENDER);
+	getWind()->SetBrush(LAVENDER);
+	getWind()->DrawRectangle(tempball->getPosition().x, tempball->getPosition().y, tempball->getPosition().x + 30, tempball->getPosition().y + 30);
+	tempball->reset_position();
+	score = 0;
+	timer = 0;
+	gameToolbar->reset_lives();
+
+}
+
 
 
 
@@ -191,6 +210,7 @@ int game::getScore()
 void game::updateScore(int scoreChange)
 {
 	score += scoreChange;
+	gameToolbar->draw_score();
 }
 
 
@@ -217,6 +237,20 @@ void game::removecollectibles(collectible* a3)
 
 
 }
+
+void game::set_direction(float x, float y)
+{
+	direction[0] = x;
+	direction[1] = y;
+}
+
+float* game::get_direction()
+{
+	return direction;
+}
+
+
+
 
 
 
@@ -251,19 +285,20 @@ void game::go() const
 			}
 		}
 		if (gameMode == MODE_PLAY) {
-			space = get_key(moveball);
-			float direction[2] = { 0,1 };
+			space = wait_key(moveball);
+			
 			temppaddle->draw();
-			while (moveball == ' ') {
+			while (moveball == ' '&& gameMode==MODE_PLAY) {
 				do {
 					gameToolbar->draw_time(pWind);
-					if (!tempball->move_ball(direction)) {
-						tempball->reset_position(direction);
+					if (!tempball->move_ball()) {
+						gameToolbar->decrease_lives();
+						tempball->reset_position();
 						temppaddle->draw();
 						space = wait_key(moveball);
 					}
-					tempball->get_velocity(direction);
-					tempball->brickdeflection(direction);
+					tempball->get_velocity();
+					tempball->brickdeflection();
 					
 					for (int i = 0; i < currentcollect; i++) {
 						a1[i]->move_collectible();
@@ -272,23 +307,19 @@ void game::go() const
 						{
 							a1[i]->collisionAction();
 						}
-						  
-						
-						
-	
-						
 					}
 					
 					ktype = get_key(paddle_movement);
 					if (ktype == ESCAPE) {
 						printMessage("Toolbar accessed");
-						getMouseClickc(x, y);
+						getMouseClick(x, y);
 						if (y >= 0 && y < config.toolBarHeight)
 						{
 							isExit = gameToolbar->handleClickPlayMode(x, y);
+							ktype = NO_KEYPRESS;
 						}
 					}
-				} while (ktype != ARROW);
+				} while (ktype != ARROW && gameMode==MODE_PLAY);
 				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				while (ktype == ARROW) {
 

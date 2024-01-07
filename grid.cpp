@@ -50,6 +50,7 @@ void grid::draw() const
 	window* pWind = pGame->getWind();
 	//draw lines showing the grid
 	pWind->SetPen(config.gridLinesColor,1);
+	pWind->SetBrush(LAVENDER);
 
 	//draw horizontal lines
 	for (int i = 0; i < rows; i++) {

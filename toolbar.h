@@ -176,5 +176,7 @@ public:
 	timer times;
 	int lives = 3;
 	void decrease_lives();
+	void reset_lives();
+	void draw_score();
 };
 
