@@ -226,13 +226,25 @@ void game::addcollectibles(collectible* a2)
 void game::removecollectibles(collectible* a3)
 {
 	
-		if (currentcollect < maxcollect)
+	for (int i = 0; i < currentcollect; i++)
+	{
+		if (a1[i] == a3)
 		{
-			delete a1[currentcollect];
-			a1[currentcollect] = nullptr;
-			delete a3;
+			delete a1[i];
+			a1[i] = nullptr;
+			// Shift the remaining elements in the array
+			for (int j = i; j < currentcollect - 1; j++)
+			{
+				a1[j] = a1[j + 1];
+			}
+			a1[currentcollect - 1] = nullptr;
+			currentcollect--;
+			break;
 		}
+	}
 
+	delete a3;
+	a3 = nullptr;
 	
 
 
@@ -323,11 +335,22 @@ void game::go() const
 				printMessage("Play                                                                                                                                              Press Esc to access toolbar");
 				while (ktype == ARROW) {
 
-					if (paddle_movement == 6) {
-						temppaddle->move_paddle_right();
+					if (getpaddle()->getcontrol()) {
+						if (paddle_movement == 6) {
+							temppaddle->move_paddle_left();
+						}
+						if (paddle_movement == 4) {
+							temppaddle->move_paddle_right();
+						}
 					}
-					if (paddle_movement == 4) {
-						temppaddle->move_paddle_left();
+					else {
+						if (paddle_movement == 6) {
+							temppaddle->move_paddle_right();
+						}
+						if (paddle_movement == 4) {
+							temppaddle->move_paddle_left();
+						}
+
 					}
 					ktype = NO_KEYPRESS;
 
