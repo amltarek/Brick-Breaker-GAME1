@@ -53,7 +53,7 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void rockBrick::collisionAction()
 {
-	pGame->getGrid()->deleteBrick(uprLft);
+	pGame->updateScore(1);
 }
 
 ////////////////////////////////////////////////////  class powerup_downBrick  /////////////////////////////////

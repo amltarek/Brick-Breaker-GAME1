@@ -299,9 +299,10 @@ void game::go() const
 						temppaddle->draw();
 						space = wait_key(moveball);
 					}
-					tempball->get_velocity();
-					tempball->brickdeflection();
-					
+					if (tempball->getPosition().y>400)
+						tempball->get_velocity();
+					else
+						tempball->brickdeflection();
 					for (int i = 0; i < currentcollect; i++) {
 						if (a1[i]) {
 							a1[i]->move_collectible();
