@@ -215,8 +215,6 @@ void grid::swapBrick(point brickPosition1, point brickPosition2)
 }
 
 
-}
-
 void grid::draw_lines()
 {
 	window* pWind = pGame->getWind();
