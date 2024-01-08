@@ -34,6 +34,27 @@ int collectible::getindex()
 	return index;
 }
 
+bool collectible::ismoving()
+{
+	return moving;
+}
+
+int collectible::get_timer()
+{
+	collectibleTimer.update_time();
+	return collectibleTimer.get_time();
+}
+
+int collectible::get_duration()
+{
+	return duration;
+}
+
+bool collectible::get_activation()
+{
+	return activated;
+}
+
 fireball::fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
 	imageName = "images\\collectibles\\Fireball.jpg";
@@ -41,14 +62,21 @@ fireball::fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 
 void fireball::collisionAction()
 {
+	
+	moving = false;
+	activated = true;
+	collectibleTimer.set_time();
+	point prevPosition = uprLft;
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	pGame->getball()->setType(FIRE_BALL);
-
-	pGame->removecollectibles(this->getindex());
 }
 
 void fireball::stopAction()
 {
 	pGame->getball()->setType(NRM_BALL);
+	pGame->removecollectibles(this->getindex());
 }
 
 invertedPaddle::invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
@@ -58,13 +86,20 @@ invertedPaddle::invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int 
 
 void invertedPaddle::collisionAction()
 {
+	moving = false;
+	activated = true;
+	collectibleTimer.set_time();
+	point prevPosition = uprLft;
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	pGame->getpaddle()->inverted(true);
-	pGame->removecollectibles(this->getindex());
 }
 
 void invertedPaddle::stopAction()
 {
 	pGame->getpaddle()->inverted(false);
+	pGame->removecollectibles(this->getindex());
 }
 
 Windglide::Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
@@ -74,13 +109,20 @@ Windglide::Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duratio
 
 void Windglide::collisionAction()
 {
+	moving = false;
+	activated = true;
+	collectibleTimer.set_time();
+	point prevPosition = uprLft;
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	pGame->getpaddle()->setSpeed(40);
-	pGame->removecollectibles(this->getindex());
 }
 
 void Windglide::stopAction()
 {
 	pGame->getpaddle()->setSpeed(30);
+	pGame->removecollectibles(this->getindex());
 }
 
 Quicksand::Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
@@ -90,7 +132,19 @@ Quicksand::Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duratio
 
 void Quicksand::collisionAction()
 {
+	moving = false;
+	activated = true;
+	collectibleTimer.set_time();
+	point prevPosition = uprLft;
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	pGame->getpaddle()->setSpeed(10);
+}
+
+void Quicksand::stopAction()
+{
+	pGame->getpaddle()->setSpeed(30);
 	pGame->removecollectibles(this->getindex());
 }
 
