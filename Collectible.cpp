@@ -165,9 +165,9 @@ void freeze::collisionAction()
 }
 
 void freeze::stopAction()
-{
-	
+{	
 	pGame->set_direction(direction[0],direction[1]);
+	pGame->removecollectibles(this->getindex());
 }
 
 widepaddle::widepaddle(point r_uprleft, int r_radius, game* r_pGame, int r_duration):
@@ -196,6 +196,8 @@ magnet::magnet(point r_uprleft, int r_radius, game* r_pGame, int r_duration)
 void magnet::collisionAction()
 {
 	pGame->getball()->reset_position();
+	pGame->removecollectibles(this->getindex());
+
 }
 
 void magnet::stopAction()
