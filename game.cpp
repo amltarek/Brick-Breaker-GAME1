@@ -238,6 +238,9 @@ void game::addcollectibles(point uprleft)
 		case 4:
 			gameCollectibles[currentcollect] = new freeze(uprleft, collectible_radius, this, 8);
 			break;
+		case 5:
+			gameCollectibles[currentcollect] = new magnet(uprleft, collectible_radius, this, 8);
+			break;
 
 		}
 

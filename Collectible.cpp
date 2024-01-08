@@ -93,3 +93,57 @@ void Quicksand::collisionAction()
 	pGame->getpaddle()->setSpeed(10);
 	pGame->removecollectibles(this->getindex());
 }
+
+void Quicksand::stopAction()
+{
+}
+
+freeze::freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
+	collectible(r_uprleft, r_radius, r_pGame, r_duration)
+{
+	imageName = "images\\collectibles\\freeze.jpg";
+}
+
+void freeze::collisionAction()
+{
+	direction = pGame->get_direction();
+	pGame->set_direction(0, 0);
+}
+
+void freeze::stopAction()
+{
+	
+	pGame->set_direction(direction[0],direction[1]);
+}
+
+widepaddle::widepaddle(point r_uprleft, int r_radius, game* r_pGame, int r_duration):
+	collectible(r_uprleft, r_radius, r_pGame, r_duration)
+{
+	imageName = "images\\collectibles\\widepaddle.jpg";
+
+}
+
+void widepaddle::collisionAction()
+{
+
+}
+
+void widepaddle::stopAction()
+{
+}
+
+magnet::magnet(point r_uprleft, int r_radius, game* r_pGame, int r_duration)
+	:collectible(r_uprleft, r_radius, r_pGame, r_duration)
+{
+
+	imageName = "images\\collectibles\\magnet.jpg";
+}
+
+void magnet::collisionAction()
+{
+	pGame->getball()->reset_position();
+}
+
+void magnet::stopAction()
+{
+}

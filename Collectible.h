@@ -25,6 +25,7 @@ enum CollectibleType {
     WINDGLIDE,
     QUICKSAND,
     FREEZE,
+    MAGNET,
     CLTB_CNT
 };
 
@@ -61,5 +62,20 @@ class freeze : public collectible {
 public:
     freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
     void collisionAction() override;
+    void stopAction() override;
 };
 
+class widepaddle : public collectible {
+    
+public:
+    widepaddle(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
+    void collisionAction() override;
+    void stopAction() override;
+};
+class magnet : public collectible {
+
+public:
+    magnet(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
+    void collisionAction() override;
+    void stopAction() override;
+};
