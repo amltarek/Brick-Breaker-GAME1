@@ -96,7 +96,11 @@ rockBrick::rockBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void rockBrick::collisionAction()
 {
-	pGame->updateScore(1);
+	if (pGame->getball()->getType() == FIRE_BALL) {
+		pGame->updateScore(5);
+		pGame->getGrid()->deleteBrick(uprLft);
+	}
+	else pGame->updateScore(1);
 }
 
 ////////////////////////////////////////////////////  class powerup_downBrick  /////////////////////////////////
@@ -109,19 +113,9 @@ powerup_downBrick::powerup_downBrick(point r_uprleft, int r_width, int r_height,
 
 void powerup_downBrick::collisionAction()
 {
-
 	pGame->updateScore(4);
-	
-pGame->addcollectibles(uprLft);
-
-pGame->getGrid()->deleteBrick(uprLft);
-
-
-
-
-
-
-
+	pGame->addcollectibles(uprLft);
+	pGame->getGrid()->deleteBrick(uprLft);
 }
 
 /////////////////////////////////////////////////// class hardbrick /////////////////////////////////////////////////////////
@@ -135,16 +129,21 @@ hardBrick::hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame) 
 
 void hardBrick::collisionAction()
 {
-	strength--;
-	pGame->updateScore(1);
-	// Check if the brick is destroyed
-	if (strength <= 0)
-	{
+	if (pGame->getball()->getType() == FIRE_BALL) {
+		pGame->updateScore(strength);
 		pGame->getGrid()->deleteBrick(uprLft);
 	}
-
+	else {
+		strength--;
+		pGame->updateScore(1);
+		// Check if the brick is destroyed
+		if (strength <= 0)
+		{
+			pGame->getGrid()->deleteBrick(uprLft);
+		}
+	}
 }
-///////////////////////////////////////////////////////////////////////swapp
+///////////////////////////////////////////////////////////////////////swap///////////////////////////////////////////////
 swapBrick::swapBrick(point r_uprleft, int r_width, int r_height, game* r_pGame):
 	brick(r_uprleft, r_width, r_height, r_pGame)
 {

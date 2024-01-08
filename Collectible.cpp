@@ -7,10 +7,7 @@ collectible::collectible(point r_uprleft, int r_radius, game* r_pGame,int r_dura
 {
 }
 
-collectible::~collectible()
-{
-	
-}
+
 
 bool collectible::move_collectible()
 {
@@ -19,17 +16,14 @@ bool collectible::move_collectible()
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	uprLft.y++;
-
-	
-	
 	pGame->getpaddle()->draw();
 	this->draw();
-
 	pGame->getWind()->UpdateBuffer();
-	
+	if (prevPosition.y >= 520) {
+		pGame->removecollectibles(this->getindex());
+		return false;
+	}
 	return true;
-
-	
 }
 void collectible::setindex(int index)
 {
@@ -39,47 +33,47 @@ int collectible::getindex()
 {
 	return index;
 }
-//////////////////////////////////////powerup
-powerup::powerup(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
+
+fireball::fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
-	imageName = "images\\collectibles\\2xxx.jpg";
+	imageName = "images\\collectibles\\Fireball.jpg";
 }
 
-void powerup::collisionAction()
+void fireball::collisionAction()
 {
-		
+	pGame->getball()->setType(FIRE_BALL);
 	pGame->removecollectibles(this->getindex());
-	
-	
-
 }
 
-void powerup::draw()
-{
-	///////////////pGame->getWind()->DrawImage(imageName, uprLft.x, uprLft.y);
-	pGame->getWind()->SetBrush(RED);
-	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
-}
-///////////////////////////////////////////////////////////////powerdown////////////////////////////////////////////
-powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
+invertedPaddle::invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 	collectible(r_uprleft, r_radius, r_pGame,r_duration) {
 	imageName = "images\\collectibles\\inverted paddle.jpg";
-	
-	
 }
 
-void powerdown::collisionAction()
+void invertedPaddle::collisionAction()
 {
 	pGame->getpaddle()->inverted(true);
 	pGame->removecollectibles(this->getindex());
-
-
 }
-void powerdown::draw()
+
+Windglide::Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
+	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
+	imageName = "images\\collectibles\\Windglide.jpg";
+}
+
+void Windglide::collisionAction()
 {
-	pGame->getWind()->SetBrush(BLUE);
-    pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
-	////////////////pGame->getWind()->DrawImage(imageName, uprLft.x, uprLft.y);
+	pGame->getpaddle()->setSpeed(40);
+	pGame->removecollectibles(this->getindex());
 }
 
+Quicksand::Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
+	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
+	imageName = "images\\collectibles\\Quicksand.jpg";
+}
 
+void Quicksand::collisionAction()
+{
+	pGame->getpaddle()->setSpeed(10);
+	pGame->removecollectibles(this->getindex());
+}

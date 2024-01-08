@@ -30,7 +30,7 @@ class game
 	paddle* temppaddle;
 	ball* tempball;
 	float direction[2] = { 0,1 };
-	collectible** a1; 
+	collectible** gameCollectibles; 
 	int maxcollect=100;
 	int currentcollect = 0;
 	

@@ -23,12 +23,12 @@ void paddle::collisionAction()
 /////////////////////////////////////////////////////Paddle Movement//////////////////////////////////////////////////////////////////
 void paddle::move_paddle_left()
 {
-	if (uprLft.x - 20 >= 0)
+	if (uprLft.x - paddleSpeed >= 0)
 	{
 		pGame->getWind()->SetPen(LAVENDER, 1);
 		pGame->getWind()->SetBrush(LAVENDER);
 		pGame->getWind()->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + width, uprLft.y + height);
-		this->uprLft.x = uprLft.x - 20;
+		this->uprLft.x = uprLft.x - paddleSpeed;
 		this->draw();
 	}
 	pGame->getWind()->UpdateBuffer();
@@ -44,16 +44,26 @@ bool paddle::getcontrol()
 	return controlinverted;
 }
 
+int paddle::getSpeed()
+{
+	return paddleSpeed;
+}
+
+void paddle::setSpeed(int speed)
+{
+	this->paddleSpeed = speed;
+}
+
 
 
 
 void paddle::move_paddle_right()
 {
-	if (uprLft.x + width + 20 <= pGame->getWind()->GetWidth()) {
+	if (uprLft.x + width + paddleSpeed <= pGame->getWind()->GetWidth()) {
 		pGame->getWind()->SetPen(LAVENDER, 1);
 		pGame->getWind()->SetBrush(LAVENDER);
 		pGame->getWind()->DrawRectangle(uprLft.x, uprLft.y, uprLft.x + width, uprLft.y + height);
-		this->uprLft.x = uprLft.x + 20;
+		this->uprLft.x = uprLft.x + paddleSpeed;
 		this->draw();
 	}
 	pGame->getWind()->UpdateBuffer();
@@ -194,8 +204,14 @@ void ball::brickdeflection() {
 
 void ball::draw()
 {
-	pGame->getWind()->SetPen(BLUE);
-	pGame->getWind()->SetBrush(BLUE);
+	if (ballType == NRM_BALL) {
+		pGame->getWind()->SetPen(BLUE);
+		pGame->getWind()->SetBrush(BLUE);
+	}
+	else {
+		pGame->getWind()->SetPen(RED);
+		pGame->getWind()->SetBrush(RED);
+	}
 	pGame->getWind()->DrawCircle(uprLft.x+15, uprLft.y+15, 15);
 }
 
@@ -207,5 +223,15 @@ void ball::reset_position()
 	pGame->set_direction(0, 1);
 	this->draw();
 	pGame->getpaddle()->reset_pos();
+}
+
+BallType ball::getType()
+{
+	return ballType;
+}
+
+void ball::setType(BallType type)
+{
+	this->ballType = type;
 }
 

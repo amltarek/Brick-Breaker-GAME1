@@ -13,28 +13,40 @@ protected:
    
 public:
     collectible(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
-    ~collectible();
-    
-    virtual void draw()=0;
-    void collisionAction()=0 ;
     bool  move_collectible();
     void setindex(int index);
     int getindex();
    
 };
 
-class powerup : public collectible {
-public:
-    powerup(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
-    void collisionAction() override;
-    void draw();
-
+enum CollectibleType {
+    FIREBALL,
+    INVERTED_PADDLE,
+    WINDGLIDE,
+    QUICKSAND,
+    CLTB_CNT
 };
 
-class powerdown : public collectible {
+class fireball : public collectible {
 public:
-    powerdown(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
-
+    fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
     void collisionAction() override;
-    void draw() override;
+};
+
+class invertedPaddle : public collectible {
+public:
+    invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
+    void collisionAction() override;
+};
+
+class Windglide : public collectible {
+public:
+    Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
+    void collisionAction() override;
+};
+
+class Quicksand : public collectible {
+public:
+    Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
+    void collisionAction() override;
 };

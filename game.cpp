@@ -3,8 +3,8 @@
 #include <chrono>
 #include <thread>
 #include "grid.h"
-#include"Collectible.h"
-#include"collidable.h"
+#include "Collectible.h"
+#include "collidable.h"
 
 
 
@@ -55,7 +55,7 @@ game::game()
 	
 	//ball_paddle[0]->draw();
 	//6- Create and clear the status bar
-	a1 = new collectible * [maxcollect];
+	gameCollectibles = new collectible * [maxcollect];
 	clearStatusBar();
 }
 
@@ -216,22 +216,28 @@ void game::updateScore(int scoreChange)
 
 void game::addcollectibles(point uprleft)
 {
-	 
+	int collectible_radius = 7;
 	if (currentcollect < maxcollect)
 	{
-		int random = rand() % 2; 
+		int random = rand() % (int(CLTB_CNT)); 
 
 		switch (random)
 		{
 		case 0:
-			a1[currentcollect] = new powerup (uprleft,7 , this,0);
+			gameCollectibles[currentcollect] = new fireball(uprleft, collectible_radius, this,8);
 			break;
 		case 1:
-			a1[currentcollect] = new powerdown(uprleft, 7, this,8);
+			gameCollectibles[currentcollect] = new invertedPaddle(uprleft, collectible_radius, this,8);
+			break;
+		case 2:
+			gameCollectibles[currentcollect] = new Windglide(uprleft, collectible_radius, this, 8);
+			break;
+		case 3:
+			gameCollectibles[currentcollect] = new Quicksand(uprleft, collectible_radius, this, 8);
 			break;
 		}
 
-		a1[currentcollect]->setindex(currentcollect);
+		gameCollectibles[currentcollect]->setindex(currentcollect);
 		currentcollect++;
 	}
 }
@@ -239,19 +245,11 @@ void game::addcollectibles(point uprleft)
 void game::removecollectibles(int index)
 {
 	getWind()->SetBrush(LAVENDER);
-/////////////int x = a1[index]->getPosition().x;
-/////////////int y = a1[index]->getPosition().y;
-/////////////getWind()->DrawRectangle(x - 12, y - 12, x + 13, y + 13);
-	getWind()->SetBrush(LAVENDER);
-	getWind()->DrawCircle(a1[index]->getPosition().x, a1[index]->getPosition().y, 7);
-	delete a1[index];
-	a1[index] = nullptr;
-
-
-	
-	
-
-
+	int x = gameCollectibles[index]->getPosition().x;
+	int y = gameCollectibles[index]->getPosition().y;
+	getWind()->DrawRectangle(x - 30, y - 30, x + 30, y + 30);
+	delete gameCollectibles[index];
+	gameCollectibles[index] = nullptr;
 }
 
 void game::set_direction(float x, float y)
@@ -264,14 +262,6 @@ float* game::get_direction()
 {
 	return direction;
 }
-
-
-
-
-
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -318,12 +308,11 @@ void game::go() const
 					else
 						tempball->brickdeflection();
 					for (int i = 0; i < currentcollect; i++) {
-						if (a1[i]) {
-							a1[i]->move_collectible();
-							collidable::Collision_Check(a1[i], temppaddle);
-						}
-						 
-						
+						if (gameCollectibles[i]) {
+							gameCollectibles[i]->move_collectible();
+							if (gameCollectibles[i])
+							collidable::Collision_Check(gameCollectibles[i], temppaddle);
+						}	
 					}
 					
 					ktype = get_key(paddle_movement);
