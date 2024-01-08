@@ -140,13 +140,13 @@ void iconAddhardBrick::onClick()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-iconAddswapbrick::iconAddswapbrick(point r_uprleft, int r_width, int r_height, game* r_pGame)
+iconAdddoublebrick::iconAdddoublebrick(point r_uprleft, int r_width, int r_height, game* r_pGame)
 	:toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
 {
 
 }
 
-void iconAddswapbrick::onClick()
+void iconAdddoublebrick::onClick()
 {
 	pGame->printMessage("Click on empty cells to add swap Bricks  ==> Right-Click to stop <==");
 	int x, y;
@@ -157,7 +157,7 @@ void iconAddswapbrick::onClick()
 		clicked.x = x;
 		clicked.y = y;
 		grid* pGrid = pGame->getGrid();
-		pGrid->addBrick(BRK_SWP, clicked);
+		pGrid->addBrick(BRK_DB, clicked);
 		pGrid->draw();
 		t = pGame->getMouseClick(x, y);
 	}
@@ -294,7 +294,7 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG):
 	iconsImages[ICON_ADD_ROCK] = "images\\ToolbarIcons\\RockBrickIcon.jpg";
 	iconsImages[ICON_ADD_POWERUP_DOWN] = "images\\ToolbarIcons\\Powerup_downBrickIcon.jpg";
 	iconsImages[ICON_ADD_HARD] = "images\\ToolbarIcons\\hardbrickIcon.jpg";
-	iconsImages[ICON_ADD_SWAP] = "images\\ToolbarIcons\\swapbrick.jpg";
+	iconsImages[ICON_ADD_SWAP] = "images\\ToolbarIcons\\doublebrick.jpg";
 
 	iconsImages[ICON_DELETE] = "images\\ToolbarIcons\\DeleteIcon.jpg";
 	iconsImages[ICON_LOAD] = "images\\ToolbarIcons\\LoadIcon.jpg";
@@ -323,7 +323,7 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG):
 	p.x += config.iconWidth;
 	iconsList[ICON_ADD_HARD] = new iconAddhardBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
-	iconsList[ICON_ADD_SWAP] = new iconAddswapbrick(p, config.iconWidth, height, pGame);
+	iconsList[ICON_ADD_SWAP] = new iconAdddoublebrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
 
 	iconsList[ICON_DELETE] = new iconDelete(p, config.iconWidth, height, pGame);

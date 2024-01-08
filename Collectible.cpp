@@ -77,3 +77,17 @@ void Quicksand::collisionAction()
 	pGame->getpaddle()->setSpeed(10);
 	pGame->removecollectibles(this->getindex());
 }
+
+freeze::freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration):
+	collectible(r_uprleft, r_radius, r_pGame, r_duration)
+{ 
+	imageName = "images\\collectibles\\freeze.jpg";
+}
+
+void freeze::collisionAction()
+{  
+	direction= pGame->get_direction();
+	pGame->set_direction(0, 0);
+
+	
+}

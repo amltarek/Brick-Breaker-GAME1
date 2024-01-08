@@ -12,7 +12,7 @@ enum BrickType	//add more brick types
 	BRK_RCK,	//Rock Brick (2)
 	BRK_PUD,	//Powerup/down Brick (3) 
 	BRK_HRD,	//Hard Brick (4)
-	BRK_SWP
+	BRK_DB
 
 	//TODO: Add more types
 };
@@ -73,12 +73,12 @@ public:
 };
 //////////////////////////////////////////////////////////////////////
 
-class swapBrick :public brick
+class doubleBrick :public brick
 {
 private:
 	
 public:
-	swapBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	doubleBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
 };
 
