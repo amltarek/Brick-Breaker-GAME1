@@ -45,6 +45,11 @@ void fireball::collisionAction()
 	pGame->removecollectibles(this->getindex());
 }
 
+void fireball::stopAction()
+{
+	pGame->getball()->setType(NRM_BALL);
+}
+
 invertedPaddle::invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 	collectible(r_uprleft, r_radius, r_pGame,r_duration) {
 	imageName = "images\\collectibles\\inverted paddle.jpg";
@@ -54,6 +59,11 @@ void invertedPaddle::collisionAction()
 {
 	pGame->getpaddle()->inverted(true);
 	pGame->removecollectibles(this->getindex());
+}
+
+void invertedPaddle::stopAction()
+{
+	pGame->getpaddle()->inverted(false);
 }
 
 Windglide::Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
@@ -67,6 +77,11 @@ void Windglide::collisionAction()
 	pGame->removecollectibles(this->getindex());
 }
 
+void Windglide::stopAction()
+{
+	pGame->getpaddle()->setSpeed(30);
+}
+
 Quicksand::Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
 	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
 	imageName = "images\\collectibles\\Quicksand.jpg";
@@ -76,4 +91,9 @@ void Quicksand::collisionAction()
 {
 	pGame->getpaddle()->setSpeed(10);
 	pGame->removecollectibles(this->getindex());
+}
+
+void Quicksand::stopAction()
+{
+	pGame->getpaddle()->setSpeed(30);
 }
