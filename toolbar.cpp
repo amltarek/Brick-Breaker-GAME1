@@ -457,9 +457,8 @@ bool toolbar::handleClickPlayMode(int x, int y)
 void toolbar::decrease_lives()
 {
 	if (lives>0) lives--;
-	else {
-		pGame->printMessage("Game Over");
-	}
+
+	if (lives <= 0) pGame->setGameMode(2);
 }
 
 void toolbar::reset_lives()

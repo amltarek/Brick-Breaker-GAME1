@@ -5,17 +5,16 @@
 #include "grid.h"
 #include "Collectible.h"
 #include "collidable.h"
-
-
-
-
 using namespace std::this_thread;     // sleep_for, sleep_until
 using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
 class collidable;
 game::game()
 {
-	//Initializeplaygrond parameters
+
+
+
+	//Initialize playgrond parameters
 	gameMode = MODE_DSIGN;
 
 	//1 - Create the main window
@@ -163,11 +162,6 @@ toolbar* game::getGameToolbar() const
 	return gameToolbar;
 }
 
-collidable** game::getBallorPaddle() const
-{
-	return ball_paddle;
-}
-
 ball* game::getball() const
 {
 	return tempball;
@@ -263,6 +257,11 @@ float* game::get_direction()
 	return direction;
 }
 
+void game::setWinStatus(bool p)
+{
+	this->win = p;
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 void game::go() const
@@ -274,7 +273,6 @@ void game::go() const
 	char moveball;
 	keytype ktype;
 	keytype space;
-
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - Brick Breaker (CIE202-project) - - - - - - - - - -");
 	do
@@ -290,12 +288,12 @@ void game::go() const
 				isExit = gameToolbar->handleClickDesignMode(x, y);
 			}
 		}
-		if (gameMode == MODE_PLAY) {
+		if (gameMode == MODE_PLAY) {  //Game is in the Play mode
 			space = wait_key(moveball);
-			
 			temppaddle->draw();
 			while (moveball == ' '&& gameMode==MODE_PLAY) {
 				do {
+					bricksGrid->checkBrickDestruction();
 					gameToolbar->draw_time(pWind);
 					if (!tempball->move_ball()) {
 						gameToolbar->decrease_lives();
@@ -353,6 +351,19 @@ void game::go() const
 				} 
 
 			}
+		}
+		if (gameMode == MODE_END)		//Game ended
+		{
+			string message;
+			if (win) message = "Congratulations!";
+			else message = "Game Over!";
+			pWind->DrawRectangle(200, 100, 1000, 500);
+			pWind->SetPen(config.penColor, 50);
+			pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+			pWind->DrawString(530, 200, message);
+			pWind->DrawString(300, 300, "Time taken: "+ to_string(gameToolbar->times.get_time()));
+			pWind->DrawString(750, 300, "Total score: " + to_string(score));
+			wait_key(moveball);
 		}
 	} while (!isExit);
 	pWind->SetBuffering(false);

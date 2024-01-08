@@ -231,3 +231,13 @@ void grid::draw_lines()
 		pWind->DrawLine(x, uprLft.y, x, uprLft.y + rows * config.brickHeight);
 	}
 }
+
+void grid::checkBrickDestruction() {
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
+			if (brickMatrix[i][j]) {
+				return;
+			}
+	pGame->setGameMode(2);
+	pGame->setWinStatus(true);
+}

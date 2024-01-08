@@ -146,6 +146,7 @@ class toolbar:public drawable
 		ICON_ADD_POWERUP_DOWN,
 
 		ICON_ADD_HARD,
+
 		ICON_ADD_SWAP,
 
 		//TODO: Add more icons names here
