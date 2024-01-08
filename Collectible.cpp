@@ -42,6 +42,7 @@ fireball::fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 void fireball::collisionAction()
 {
 	pGame->getball()->setType(FIRE_BALL);
+
 	pGame->removecollectibles(this->getindex());
 }
 
