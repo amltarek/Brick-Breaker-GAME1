@@ -30,7 +30,7 @@ class game
 	grid* bricksGrid;
 	paddle* temppaddle;
 	ball* tempball;
-	float direction[2] = { 0,1 };
+	float direction[2] = { 0,-1 };
 	collectible** gameCollectibles; 
 	int maxcollect=100;
 	int currentcollect = 0;

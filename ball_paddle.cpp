@@ -100,7 +100,7 @@ bool ball::move_ball()
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x+30,prevPosition.y+30);
 	if (uprLft.y <= 40) {
-		pGame->set_direction(-pGame->get_direction()[0], 1);
+		pGame->set_direction(pGame->get_direction()[0], 1);
 		uprLft.y = 40 + 1;
 	}
 	if (uprLft.x <=5) {
@@ -219,8 +219,8 @@ void ball::reset_position()
 {
 	pGame->getGameToolbar()->drawPlayMode();
 	this->uprLft.x = (config.windWidth / 2) - 15;
-	this->uprLft.y = 350;
-	pGame->set_direction(0, 1);
+	this->uprLft.y = pGame->getpaddle()->getPosition().y-30;
+	pGame->set_direction(0, -1);
 	this->draw();
 	pGame->getpaddle()->reset_pos();
 }

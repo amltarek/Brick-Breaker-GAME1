@@ -49,7 +49,7 @@ game::game()
 	//TODO: Add code to create and draw the ball
 	point position;
 	position.x =(config.windWidth/2)-15;
-	position.y = 350;
+	position.y = temppaddle->getPosition().y-30;
 	tempball = new ball(position, 30, 30, this);
 	
 	//ball_paddle[0]->draw();
