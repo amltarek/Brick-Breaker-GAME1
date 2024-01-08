@@ -3,7 +3,7 @@
 void timer::set_time()
 {
 	intial_time = time(0);
-
+	started = true;
 }
 
 void timer::update_time()
@@ -12,4 +12,9 @@ void timer::update_time()
 }
 int timer::get_time() {
 	return (current_time - intial_time);
+}
+
+bool timer::get_started()
+{
+	return started;
 }

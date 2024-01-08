@@ -54,10 +54,10 @@ public:
 };
 ////////////////////////////////////////////////////////////////////////////
 
-class iconAddswapbrick :public toolbarIcon
+class iconAdddoublebrick :public toolbarIcon
 {
 public:
-	iconAddswapbrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	iconAdddoublebrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	virtual void onClick();
 };
 

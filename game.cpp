@@ -218,17 +218,24 @@ void game::addcollectibles(point uprleft)
 		switch (random)
 		{
 		case 0:
-			gameCollectibles[currentcollect] = new fireball(uprleft, collectible_radius, this,8);
+			gameCollectibles[currentcollect] = new fireball(uprleft, collectible_radius, this,20);
 			break;
 		case 1:
-			gameCollectibles[currentcollect] = new invertedPaddle(uprleft, collectible_radius, this,8);
+			gameCollectibles[currentcollect] = new invertedPaddle(uprleft, collectible_radius, this,20);
 			break;
 		case 2:
-			gameCollectibles[currentcollect] = new Windglide(uprleft, collectible_radius, this, 8);
+			gameCollectibles[currentcollect] = new Windglide(uprleft, collectible_radius, this, 20);
 			break;
 		case 3:
-			gameCollectibles[currentcollect] = new Quicksand(uprleft, collectible_radius, this, 8);
+			gameCollectibles[currentcollect] = new Quicksand(uprleft, collectible_radius, this, 20);
 			break;
+		case 4:
+			gameCollectibles[currentcollect] = new freeze(uprleft, collectible_radius, this, 8);
+			break;
+		case 5:
+			gameCollectibles[currentcollect] = new magnet(uprleft, collectible_radius, this, 3);
+			break;
+
 		}
 
 		gameCollectibles[currentcollect]->setindex(currentcollect);
@@ -239,6 +246,7 @@ void game::addcollectibles(point uprleft)
 void game::removecollectibles(int index)
 {
 	getWind()->SetBrush(LAVENDER);
+	getWind()->SetPen(LAVENDER);
 	int x = gameCollectibles[index]->getPosition().x;
 	int y = gameCollectibles[index]->getPosition().y;
 	getWind()->DrawRectangle(x - 30, y - 30, x + 30, y + 30);
@@ -255,6 +263,11 @@ void game::set_direction(float x, float y)
 float* game::get_direction()
 {
 	return direction;
+}
+
+void game::add_time()
+{
+	collectible_times[currentcollect].set_time();
 }
 
 void game::setWinStatus(bool p)
@@ -306,11 +319,16 @@ void game::go() const
 					else
 						tempball->brickdeflection();
 					for (int i = 0; i < currentcollect; i++) {
-						if (gameCollectibles[i]) {
+						if (gameCollectibles[i]&&gameCollectibles[i]->ismoving()) {
 							gameCollectibles[i]->move_collectible();
 							if (gameCollectibles[i])
 							collidable::Collision_Check(gameCollectibles[i], temppaddle);
-						}	
+						}
+						else if (gameCollectibles[i] && gameCollectibles[i]->get_activation()) {
+							if (gameCollectibles[i]->get_timer() >= gameCollectibles[i]->get_duration()) {
+								gameCollectibles[i]->stopAction();
+							}
+						}
 					}
 					
 					ktype = get_key(paddle_movement);

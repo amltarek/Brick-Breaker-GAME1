@@ -113,8 +113,8 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 		brickMatrix[gridCellRowIndex][gridCellColIndex] = new hardBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
       break;
 
-	case BRK_SWP:
-		brickMatrix[gridCellRowIndex][gridCellColIndex] = new hardBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+	case BRK_DB:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new doubleBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
 		break;
 		//TODO: 
 		// handle more types
