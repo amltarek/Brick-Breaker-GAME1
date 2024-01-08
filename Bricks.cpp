@@ -115,6 +115,7 @@ void powerup_downBrick::collisionAction()
 {
 	pGame->updateScore(4);
 	pGame->addcollectibles(uprLft);
+
 	pGame->getGrid()->deleteBrick(uprLft);
 }
 

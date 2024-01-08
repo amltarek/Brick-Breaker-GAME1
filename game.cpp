@@ -267,6 +267,11 @@ float* game::get_direction()
 	return direction;
 }
 
+void game::add_time()
+{
+	collectible_times[currentcollect].set_time();
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 void game::go() const

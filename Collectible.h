@@ -16,7 +16,7 @@ public:
     bool  move_collectible();
     void setindex(int index);
     int getindex();
-   
+    virtual void stopAction() = 0;
 };
 
 enum CollectibleType {
@@ -32,24 +32,28 @@ class fireball : public collectible {
 public:
     fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
     void collisionAction() override;
+    void stopAction() override;
 };
 
 class invertedPaddle : public collectible {
 public:
     invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int r_duration);
     void collisionAction() override;
+    void stopAction() override;
 };
 
 class Windglide : public collectible {
 public:
     Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
     void collisionAction() override;
+    void stopAction() override;
 };
 
 class Quicksand : public collectible {
 public:
     Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
     void collisionAction() override;
+    void stopAction() override;
 };
 
 class freeze : public collectible {

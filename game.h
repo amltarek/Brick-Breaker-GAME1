@@ -33,7 +33,7 @@ class game
 	collectible** gameCollectibles; 
 	int maxcollect=100;
 	int currentcollect = 0;
-	
+	timer collectible_times[100];
 	
 	
 	int timer = 0;
@@ -82,5 +82,6 @@ public:
 	void removecollectibles(int index);
 	void set_direction(float x, float y);
 	float* get_direction();
+	void add_time();
 };
 

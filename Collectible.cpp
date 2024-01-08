@@ -42,7 +42,13 @@ fireball::fireball(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 void fireball::collisionAction()
 {
 	pGame->getball()->setType(FIRE_BALL);
+
 	pGame->removecollectibles(this->getindex());
+}
+
+void fireball::stopAction()
+{
+	pGame->getball()->setType(NRM_BALL);
 }
 
 invertedPaddle::invertedPaddle(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
@@ -56,6 +62,11 @@ void invertedPaddle::collisionAction()
 	pGame->removecollectibles(this->getindex());
 }
 
+void invertedPaddle::stopAction()
+{
+	pGame->getpaddle()->inverted(false);
+}
+
 Windglide::Windglide(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
 	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
 	imageName = "images\\collectibles\\Windglide.jpg";
@@ -67,6 +78,11 @@ void Windglide::collisionAction()
 	pGame->removecollectibles(this->getindex());
 }
 
+void Windglide::stopAction()
+{
+	pGame->getpaddle()->setSpeed(30);
+}
+
 Quicksand::Quicksand(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
 	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
 	imageName = "images\\collectibles\\Quicksand.jpg";
@@ -76,18 +92,4 @@ void Quicksand::collisionAction()
 {
 	pGame->getpaddle()->setSpeed(10);
 	pGame->removecollectibles(this->getindex());
-}
-
-freeze::freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration):
-	collectible(r_uprleft, r_radius, r_pGame, r_duration)
-{ 
-	imageName = "images\\collectibles\\freeze.jpg";
-}
-
-void freeze::collisionAction()
-{  
-	direction= pGame->get_direction();
-	pGame->set_direction(0, 0);
-
-	
 }
