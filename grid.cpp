@@ -2,6 +2,8 @@
 #include "game.h"
 #include "gameConfig.h"
 #include <fstream>
+#include"Bricks.h"
+class swapBrick;
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG):
 	drawable(r_uprleft, wdth, hght, pG)
@@ -24,7 +26,7 @@ grid::~grid()
 	for (int i = 0; i < rows; i++)
 		for (int j = 0; j < cols; j++)
 			if (brickMatrix[i][j])
-				delete brickMatrix[i][j];	//delete all allocated bricks
+				delete brickMatrix[i][j];	
 
 	for (int i = 0; i < rows; i++)
 		delete brickMatrix[i];
@@ -109,6 +111,10 @@ int grid::addBrick(BrickType brkType, point clickedPoint)
 
 	case BRK_HRD:
 		brickMatrix[gridCellRowIndex][gridCellColIndex] = new hardBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
+      break;
+
+	case BRK_SWP:
+		brickMatrix[gridCellRowIndex][gridCellColIndex] = new hardBrick(newBrickUpleft, config.brickWidth, config.brickHeight, pGame);
 		break;
 		//TODO: 
 		// handle more types
@@ -187,6 +193,28 @@ bool grid::loadFromFile(string filename)
 	draw();
 	inFile.close();
 	return true;
+}
+
+void grid::swapBrick(point brickPosition1, point brickPosition2)
+{
+	int row1 = (brickPosition1.y - config.toolBarHeight) / config.brickHeight;
+	int col1 = brickPosition1.x / config.brickWidth;
+	int row2 = (brickPosition2.y - config.toolBarHeight) / config.brickHeight;
+	int col2 = brickPosition2.x / config.brickWidth;
+
+	if (row1 >= 0 && row1 < rows && col1 >= 0 && col1 < cols &&
+		row2 >= 0 && row2 <rows && col2 >= 0 && col2 < cols) {
+		std::swap(brickMatrix[row1][col1], brickMatrix[row2][col2]);
+
+		if (brickMatrix[row1][col1])
+			brickMatrix[row1][col1]->setposition(brickPosition1);
+
+		if (brickMatrix[row2][col2])
+			brickMatrix[row2][col2]->setposition(brickPosition2);
+	}
+}
+
+
 }
 
 void grid::draw_lines()

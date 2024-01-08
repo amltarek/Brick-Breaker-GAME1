@@ -110,7 +110,7 @@ powerup_downBrick::powerup_downBrick(point r_uprleft, int r_width, int r_height,
 void powerup_downBrick::collisionAction()
 {
 
-
+	pGame->updateScore(4);
 	
 pGame->addcollectibles(uprLft);
 
@@ -144,4 +144,25 @@ void hardBrick::collisionAction()
 	}
 
 }
+///////////////////////////////////////////////////////////////////////swapp
+swapBrick::swapBrick(point r_uprleft, int r_width, int r_height, game* r_pGame):
+	brick(r_uprleft, r_width, r_height, r_pGame)
+{
+	type = BRK_SWP;
+	
+	imageName = "images\\bricks\\swapbrick.jpg";
+}
 
+void swapBrick::collisionAction()
+{
+	grid* pGrid = pGame->getGrid();
+	pGame->updateScore(5);
+	point temp;
+	temp.x = uprLft.x + width;
+	temp.y = uprLft.y;
+	pGrid->swapBrick(uprLft, temp);
+
+	temp.x = uprLft.x;
+	temp.y = uprLft.y + height;
+	pGrid->swapBrick(uprLft, temp);
+}

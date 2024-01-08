@@ -1,10 +1,12 @@
 #pragma once
 #include "collidable.h"
 #include "Bricks.h"
+#include"timer.h"
 class paddle :public collidable {
 
 private:
 	bool controlinverted;
+
 
 public:
 	paddle(point r_uprleft, int r_width, int r_height, game* r_pGame);
@@ -14,6 +16,7 @@ public:
 	void move_paddle_left();
 	void inverted(bool inverted);
 	bool getcontrol();
+
 };
 
 class ball :public collidable {
