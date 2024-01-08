@@ -26,5 +26,6 @@ public:
 	bool loadFromFile(string filename);
 	void swapBrick(point brickPosition1, point brickPosition2);
 	
+	void draw_lines();
 };
 
