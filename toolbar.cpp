@@ -138,6 +138,35 @@ void iconAddhardBrick::onClick()
 
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+iconAddswapbrick::iconAddswapbrick(point r_uprleft, int r_width, int r_height, game* r_pGame)
+	:toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
+{
+
+}
+
+void iconAddswapbrick::onClick()
+{
+	pGame->printMessage("Click on empty cells to add swap Bricks  ==> Right-Click to stop <==");
+	int x, y;
+	clicktype t = pGame->getMouseClick(x, y);
+	while (t == LEFT_CLICK)
+	{
+		point clicked;
+		clicked.x = x;
+		clicked.y = y;
+		grid* pGrid = pGame->getGrid();
+		pGrid->addBrick(BRK_SWP, clicked);
+		pGrid->draw();
+		t = pGame->getMouseClick(x, y);
+	}
+	pGame->printMessage("");
+
+
+}
+
+
 ////////////////////////////////////////////////////  class iconDelete   //////////////////////////////////////////////
 iconDelete::iconDelete(point r_uprleft, int r_width, int r_height, game* r_pGame) :
 	toolbarIcon(r_uprleft, r_width, r_height, r_pGame)
@@ -265,6 +294,8 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG):
 	iconsImages[ICON_ADD_ROCK] = "images\\ToolbarIcons\\RockBrickIcon.jpg";
 	iconsImages[ICON_ADD_POWERUP_DOWN] = "images\\ToolbarIcons\\Powerup_downBrickIcon.jpg";
 	iconsImages[ICON_ADD_HARD] = "images\\ToolbarIcons\\hardbrickIcon.jpg";
+	iconsImages[ICON_ADD_SWAP] = "images\\ToolbarIcons\\swapbrick.jpg";
+
 	iconsImages[ICON_DELETE] = "images\\ToolbarIcons\\DeleteIcon.jpg";
 	iconsImages[ICON_LOAD] = "images\\ToolbarIcons\\LoadIcon.jpg";
 	iconsImages[ICON_SAVE] = "images\\ToolbarIcons\\SaveIcon.jpg";
@@ -292,6 +323,9 @@ toolbar::toolbar(point r_uprleft, int wdth, int hght, game* pG):
 	p.x += config.iconWidth;
 	iconsList[ICON_ADD_HARD] = new iconAddhardBrick(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
+	iconsList[ICON_ADD_SWAP] = new iconAddswapbrick(p, config.iconWidth, height, pGame);
+	p.x += config.iconWidth;
+
 	iconsList[ICON_DELETE] = new iconDelete(p, config.iconWidth, height, pGame);
 	p.x += config.iconWidth;
 	iconsList[ICON_LOAD] = new iconLoad(p, config.iconWidth, height, pGame);
@@ -441,5 +475,4 @@ void toolbar::draw_score()
 	pGame->getWind()->SetPen(BLACK);
 	pGame->getWind()->DrawString(900, 5, "Score: " + to_string(pGame->getScore()));
 }
-
 

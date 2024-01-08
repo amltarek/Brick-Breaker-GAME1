@@ -19,7 +19,6 @@ bool collectible::move_collectible()
 	pGame->getWind()->SetBrush(LAVENDER);
 	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	uprLft.y++;
-	
 
 	
 	
@@ -42,7 +41,9 @@ int collectible::getindex()
 }
 //////////////////////////////////////powerup
 powerup::powerup(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
-	collectible(r_uprleft, r_radius, r_pGame, r_duration) {}
+	collectible(r_uprleft, r_radius, r_pGame, r_duration) {
+	imageName = "images\\collectibles\\2xxx.jpg";
+}
 
 void powerup::collisionAction()
 {
@@ -55,14 +56,15 @@ void powerup::collisionAction()
 
 void powerup::draw()
 {
+	///////////////pGame->getWind()->DrawImage(imageName, uprLft.x, uprLft.y);
 	pGame->getWind()->SetBrush(RED);
 	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
 }
 ///////////////////////////////////////////////////////////////powerdown////////////////////////////////////////////
 powerdown::powerdown(point r_uprleft, int r_radius, game* r_pGame,int r_duration):
 	collectible(r_uprleft, r_radius, r_pGame,r_duration) {
+	imageName = "images\\collectibles\\inverted paddle.jpg";
 	
-	collectibleTimer.set_time();
 	
 }
 
@@ -71,17 +73,13 @@ void powerdown::collisionAction()
 	pGame->getpaddle()->inverted(true);
 	pGame->removecollectibles(this->getindex());
 
-if (collectibleTimer.get_time() >= 6)
-	{
-	pGame->getpaddle()->inverted(false);
-	}
-	
-}
 
+}
 void powerdown::draw()
 {
 	pGame->getWind()->SetBrush(BLUE);
-	pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+    pGame->getWind()->DrawCircle(uprLft.x, uprLft.y, 7);
+	////////////////pGame->getWind()->DrawImage(imageName, uprLft.x, uprLft.y);
 }
 
 

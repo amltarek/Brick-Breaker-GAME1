@@ -29,6 +29,7 @@ public:
     int getWidth();
     int getHeight();
     game* getPtrGame();
+    void setposition(point brickposition1);
 };
 
 

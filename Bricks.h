@@ -11,7 +11,8 @@ enum BrickType	//add more brick types
 	BRK_BMB,	//Bomb Brick (1)
 	BRK_RCK,	//Rock Brick (2)
 	BRK_PUD,	//Powerup/down Brick (3) 
-	BRK_HRD		//Hard Brick (4)
+	BRK_HRD,	//Hard Brick (4)
+	BRK_SWP
 
 	//TODO: Add more types
 };
@@ -68,6 +69,16 @@ private:
 	int strength;
 public:
 	hardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	void collisionAction();
+};
+//////////////////////////////////////////////////////////////////////
+
+class swapBrick :public brick
+{
+private:
+	
+public:
+	swapBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	void collisionAction();
 };
 

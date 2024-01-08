@@ -52,6 +52,15 @@ public:
 	iconAddhardBrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
 	virtual void onClick();
 };
+////////////////////////////////////////////////////////////////////////////
+
+class iconAddswapbrick :public toolbarIcon
+{
+public:
+	iconAddswapbrick(point r_uprleft, int r_width, int r_height, game* r_pGame);
+	virtual void onClick();
+};
+
 
 ////////////////////////////////////////////////////  class iconDelete   //////////////////////////////////////////////
 class iconDelete :public toolbarIcon
@@ -137,6 +146,7 @@ class toolbar:public drawable
 		ICON_ADD_POWERUP_DOWN,
 
 		ICON_ADD_HARD,
+		ICON_ADD_SWAP,
 
 		//TODO: Add more icons names here
 

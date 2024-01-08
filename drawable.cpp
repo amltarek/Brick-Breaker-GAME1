@@ -41,6 +41,13 @@ game* drawable::getPtrGame()
 	return pGame;
 }
 
+void drawable::setposition(point brickposition1)
+{
+	uprLft = brickposition1;
+}
+
+
+
 
 
 

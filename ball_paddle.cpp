@@ -45,6 +45,8 @@ bool paddle::getcontrol()
 }
 
 
+
+
 void paddle::move_paddle_right()
 {
 	if (uprLft.x + width + 20 <= pGame->getWind()->GetWidth()) {

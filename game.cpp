@@ -239,7 +239,11 @@ void game::addcollectibles(point uprleft)
 void game::removecollectibles(int index)
 {
 	getWind()->SetBrush(LAVENDER);
-    getWind()->DrawCircle(a1[index]->getPosition().x, a1[index]->getPosition().y, 7);
+/////////////int x = a1[index]->getPosition().x;
+/////////////int y = a1[index]->getPosition().y;
+/////////////getWind()->DrawRectangle(x - 12, y - 12, x + 13, y + 13);
+	getWind()->SetBrush(LAVENDER);
+	getWind()->DrawCircle(a1[index]->getPosition().x, a1[index]->getPosition().y, 7);
 	delete a1[index];
 	a1[index] = nullptr;
 
@@ -352,7 +356,9 @@ void game::go() const
 							temppaddle->move_paddle_left();
 						}
 
+
 					}
+					
 					ktype = NO_KEYPRESS;
 
 				} 
