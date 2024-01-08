@@ -29,6 +29,7 @@ enum CollectibleType {
     INVERTED_PADDLE,
     WINDGLIDE,
     QUICKSAND,
+    FREEZE,
     CLTB_CNT
 };
 
@@ -59,3 +60,11 @@ public:
     void collisionAction() override;
     void stopAction() override;
 };
+
+class freeze : public collectible {
+    float* direction;
+public:
+    freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration);
+    void collisionAction() override;
+};
+

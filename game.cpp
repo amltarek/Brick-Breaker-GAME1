@@ -235,6 +235,10 @@ void game::addcollectibles(point uprleft)
 		case 3:
 			gameCollectibles[currentcollect] = new Quicksand(uprleft, collectible_radius, this, 20);
 			break;
+		case 4:
+			gameCollectibles[currentcollect] = new freeze(uprleft, collectible_radius, this, 8);
+			break;
+
 		}
 
 		gameCollectibles[currentcollect]->setindex(currentcollect);
