@@ -24,5 +24,6 @@ public:
 	void deleteBrick(point brickPosition);
 	bool saveToFile(string filename) const;
 	bool loadFromFile(string filename);
+	void draw_lines();
 };
 
