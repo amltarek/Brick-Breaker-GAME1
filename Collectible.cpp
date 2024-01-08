@@ -148,9 +148,7 @@ void Quicksand::stopAction()
 	pGame->removecollectibles(this->getindex());
 }
 
-void Quicksand::stopAction()
-{
-}
+
 
 freeze::freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
 	collectible(r_uprleft, r_radius, r_pGame, r_duration)
@@ -195,9 +193,18 @@ magnet::magnet(point r_uprleft, int r_radius, game* r_pGame, int r_duration)
 
 void magnet::collisionAction()
 {
+	pGame->getGrid()->draw();
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(pGame->getball()->getPosition().x, pGame->getball()->getPosition().y, pGame->getball()->getPosition().x + 30, pGame->getball()->getPosition().y + 30);
 	pGame->getball()->reset_position();
+	
+	pGame->removecollectibles(this->getindex());
+
 }
 
 void magnet::stopAction()
 {
+
+
 }
