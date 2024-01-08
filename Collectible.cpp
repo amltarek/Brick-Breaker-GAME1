@@ -163,9 +163,9 @@ void freeze::collisionAction()
 }
 
 void freeze::stopAction()
-{
-	
+{	
 	pGame->set_direction(direction[0],direction[1]);
+	pGame->removecollectibles(this->getindex());
 }
 
 widepaddle::widepaddle(point r_uprleft, int r_radius, game* r_pGame, int r_duration):
