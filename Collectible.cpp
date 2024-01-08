@@ -158,6 +158,13 @@ freeze::freeze(point r_uprleft, int r_radius, game* r_pGame, int r_duration) :
 
 void freeze::collisionAction()
 {
+	moving = false;
+	activated = true;
+	collectibleTimer.set_time();
+	point prevPosition = uprLft;
+	pGame->getWind()->SetPen(LAVENDER);
+	pGame->getWind()->SetBrush(LAVENDER);
+	pGame->getWind()->DrawRectangle(prevPosition.x, prevPosition.y, prevPosition.x + 30, prevPosition.y + 30);
 	direction = pGame->get_direction();
 	pGame->set_direction(0, 0);
 }
