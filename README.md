@@ -2,7 +2,7 @@
 ## Collaborators
 
 
-- [Aml Ismail](https://github.com/amltarek)
+- [Aml Ismail](https://github.com/Aml-Ismail)
 - [Youssef Allam](https://github.com/YoussefMAllam)
 - [Mohammad AbdelRahman](https://github.com/MomoAbdelRahman)
 
