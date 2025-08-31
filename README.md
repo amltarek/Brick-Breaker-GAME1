@@ -9,8 +9,8 @@
 
 ## 📝 Project Description
 
-We created a fully functional Brick Breaker Game using C++ and CMU Graphics.
-The game follows the classic arcade-style gameplay where the player controls a paddle to bounce a ball and break bricks. The goal is to destroy all bricks without letting the ball fall below the paddle.
+- We created a fully functional Brick Breaker Game using C++ and CMU Graphics.
+- The game follows the classic arcade-style gameplay where the player controls a paddle to bounce a ball and break bricks. The goal is to destroy all bricks without letting the ball fall below the paddle.
 
 
 
@@ -19,25 +19,25 @@ The game follows the classic arcade-style gameplay where the player controls a p
 
 ## 🛠️ Technologies Used
 
-Language: C++
+- Language: C++
 
-Graphics Library: CMU Graphics
+- Graphics Library: CMU Graphics
 
 
 ## 🚀 Installation & Setup
 
-Clone this repository:
 
-git clone https://github.com/yourusername/brick-breaker.git
 
-Open the project in your preferred C++ IDE (e.g., Visual Studio, Code::Blocks).
+- git clone https://github.com/yourusername/brick-breaker.git
 
-Build and run the project.
+- Open the project in your preferred C++ IDE (e.g., Visual Studio, Code::Blocks).
+
+- Build and run the project.
 
 
 
 ## 🎥 Demo Video
-https://github.com/user-attachments/assets/f5786c2a-e7ac-4e4a-b3c0-1181d55e3e79.
+- https://github.com/user-attachments/assets/f5786c2a-e7ac-4e4a-b3c0-1181d55e3e79.
 
 ## Screenshots
 <img width="1498" height="769" alt="start" src="https://github.com/user-attachments/assets/45cb65e2-4b43-41fd-9271-3c08a3ffc0cf" />
